@@ -42,8 +42,9 @@ import { wa, MENSAJES } from '../lib/empresa';
     place-items: center;
     width: 100%;
     height: 100%;
-    background: var(--vino-600);
+    background: var(--negro-800);
     color: var(--plata-50);
+    box-shadow: inset 0 0 0 1px rgb(230 228 232 / 0.35);
     transition: background-color 0.35s;
   }
   .flotante :global(svg) {
@@ -52,7 +53,7 @@ import { wa, MENSAJES } from '../lib/empresa';
   }
   @media (hover: hover) {
     .flotante:hover .flotante__forma {
-      background: var(--vino-500);
+      background: var(--negro-700);
     }
   }
 </style>

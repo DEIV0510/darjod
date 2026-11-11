@@ -10,7 +10,8 @@ interface Entrada {
 }
 
 export async function iniciarCatalogo(sec: HTMLElement) {
-  const PAGINA = Number(sec.dataset.pagina) || 24;
+  const INICIAL = Number(sec.dataset.inicial) || 8;
+  const PASO = Number(sec.dataset.paso) || 12;
   const buscar = sec.querySelector<HTMLInputElement>('[data-buscar]')!;
   const generos = [...sec.querySelectorAll<HTMLButtonElement>('[data-genero]')];
   const casa = sec.querySelector<HTMLSelectElement>('[data-casa]')!;
@@ -24,7 +25,7 @@ export async function iniciarCatalogo(sec: HTMLElement) {
   const nodos = new Map<number, HTMLLIElement>();
   rejilla.querySelectorAll<HTMLLIElement>('li[data-id]').forEach((li) => nodos.set(Number(li.dataset.id), li));
 
-  const estadoUI = { q: '', g: 0, casa: '', n: PAGINA };
+  const estadoUI = { q: '', g: 0, casa: '', n: INICIAL };
   let todos: Entrada[] = [];
   let lista: Entrada[] = [];
 
@@ -86,7 +87,7 @@ export async function iniciarCatalogo(sec: HTMLElement) {
       visibles.slice(ya).forEach((e, k) => {
         const li = nodos.get(e.v.id) ?? crear(e.v);
         li.classList.add('entra');
-        li.style.setProperty('--k', String(k % PAGINA));
+        li.style.setProperty('--k', String(k % PASO));
         frag.append(li);
       });
       rejilla.append(frag);
@@ -120,7 +121,7 @@ export async function iniciarCatalogo(sec: HTMLElement) {
     }
   }
   function aplicar() {
-    estadoUI.n = PAGINA;
+    estadoUI.n = INICIAL;
     filtrar();
     pintar(false);
     alPrincipio();
@@ -149,7 +150,7 @@ export async function iniciarCatalogo(sec: HTMLElement) {
     aplicar();
   });
   mas.addEventListener('click', () => {
-    estadoUI.n += PAGINA;
+    estadoUI.n += PASO;
     pintar(true);
   });
 

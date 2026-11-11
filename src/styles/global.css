@@ -1,5 +1,7 @@
 /* DARJOD PARFUMS — «El arte de dejar huella».
-   Terciopelo granate, plata y papel marfil. Esquinas rectas; la única forma propia es la
+   Negro, plata y papel marfil; el granate del logo queda de acento (pantalla de carga, brillo
+   tenue en el héroe y el cierre, numerales). Pedido del cliente: «con tanto fondo rojo se
+   pierde la profesionalidad». Esquinas rectas; la única forma propia es la
    «ventana» del marco del logo (esquinas cóncavas), que enmarca las fotos. */
 
 :root {
@@ -11,6 +13,12 @@
   --vino-600: #500509;
   --vino-500: #6c0b12;
   --vino-400: #8e1a22;
+
+  /* Negro cálido: base de las secciones oscuras. */
+  --negro-950: #0b0909;
+  --negro-900: #110d0e;
+  --negro-800: #1a1415;
+  --negro-700: #241c1d;
 
   --plata-50: #f4f3f5;
   --plata-100: #e6e4e8;
@@ -47,7 +55,7 @@ html {
   text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--cabecera) + 8px);
-  background: var(--vino-950);
+  background: var(--negro-950);
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -57,7 +65,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--vino-950);
+  background: var(--negro-950);
   color: var(--plata-100);
   font: 400 1rem/1.6 var(--font-texto);
   -webkit-font-smoothing: antialiased;
@@ -114,7 +122,7 @@ ol {
   z-index: 200;
   padding: 12px 18px;
   background: var(--plata-50);
-  color: var(--vino-900);
+  color: var(--negro-900);
   font-weight: 500;
   transform: translateY(-160%);
 }
@@ -197,7 +205,7 @@ ol {
 /* ── Botones (rectos) ───────────────────────────────────────────────────────────────── */
 .boton {
   --b-fondo: var(--plata-50);
-  --b-texto: var(--vino-900);
+  --b-texto: var(--negro-900);
   --b-borde: var(--plata-50);
   position: relative;
   display: inline-flex;
@@ -256,18 +264,28 @@ ol {
     --b-borde: var(--plata-50);
   }
 }
-.boton--vino {
-  --b-fondo: var(--vino-700);
-  --b-texto: var(--plata-50);
-  --b-borde: var(--vino-700);
+/* Sobre el papel: negro sólido o línea de tinta. */
+.boton--tinta {
+  --b-fondo: var(--tinta);
+  --b-texto: var(--papel);
+  --b-borde: var(--tinta);
 }
-.boton--vino::after {
+.boton--tinta::after {
   background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.22) 50%, transparent 70%);
 }
 @media (hover: hover) {
-  .boton--vino:hover {
-    --b-fondo: var(--vino-600);
-    --b-borde: var(--vino-600);
+  .boton--tinta:hover {
+    --b-fondo: #000;
+    --b-borde: #000;
+  }
+}
+.sobre-papel .boton--linea {
+  --b-texto: var(--tinta);
+  --b-borde: rgb(29 17 18 / 0.45);
+}
+@media (hover: hover) {
+  .sobre-papel .boton--linea:hover {
+    --b-borde: var(--tinta);
   }
 }
 .boton:active {
@@ -275,7 +293,7 @@ ol {
 }
 
 /* ── Terciopelo ─────────────────────────────────────────────────────────────────────── */
-/* Fondo granate con luz de terciopelo y grano fino (SVG en línea, sin peticiones). */
+/* Terciopelo granate: solo la pantalla de carga (el brief la pide en borgoña). */
 .terciopelo {
   position: relative;
   background:
@@ -283,7 +301,18 @@ ol {
     radial-gradient(90% 80% at 15% 85%, rgb(80 5 9 / 0.5) 0%, transparent 60%),
     linear-gradient(180deg, var(--vino-800), var(--vino-900));
 }
-.terciopelo::before {
+/* Noche: negro cálido con un brillo granate muy tenue en una esquina (eco del logo). */
+.noche {
+  position: relative;
+  background:
+    radial-gradient(70% 60% at 82% 12%, rgb(90 6 12 / 0.2) 0%, transparent 70%),
+    linear-gradient(180deg, var(--negro-900), var(--negro-950));
+}
+.noche--plana {
+  background: var(--negro-950);
+}
+.terciopelo::before,
+.noche::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -293,7 +322,11 @@ ol {
   mix-blend-mode: overlay;
   opacity: 0.16;
 }
-.terciopelo > * {
+.noche::before {
+  opacity: 0.1;
+}
+.terciopelo > *,
+.noche > * {
   position: relative;
 }
 

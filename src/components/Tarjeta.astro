@@ -34,8 +34,8 @@ const { v, pronto = false } = Astro.props;
       <Icono nombre="whatsapp" />
       Comprar
     </a>
-    <a class="tarjeta__consultar" href={v?.consultar} target="_blank" rel="noopener" aria-label={v ? `Consultar disponibilidad de ${v.nombre} por WhatsApp` : undefined} data-c="consultar">
-      Consultar disponibilidad
+    <a class="tarjeta__consultar" href={v?.consultar} target="_blank" rel="noopener" aria-label={v ? `Consultar disponibilidad de ${v.nombre} por WhatsApp` : undefined} title="Consultar disponibilidad" data-c="consultar">
+      Consultar
     </a>
   </div>
 </li>

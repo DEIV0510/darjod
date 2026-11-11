@@ -1,5 +1,5 @@
 ---
-// Cabecera: transparente sobre el héroe; al bajar, franja de terciopelo con desenfoque.
+// Cabecera: transparente sobre el héroe; al bajar, franja negra con desenfoque.
 // En móvil, menú a pantalla completa (dialog) que se cierra con «Atrás», Esc o al elegir.
 import { marca, srcset } from '../lib/marca';
 import Icono from './Icono.astro';
@@ -49,7 +49,7 @@ const ENLACES = [
   </div>
 </header>
 
-<dialog class="menu terciopelo" id="menu-movil" aria-label="Menú">
+<dialog class="menu noche" id="menu-movil" aria-label="Menú">
   <div class="menu__arriba contenedor">
     <picture class="menu__logo">
       <source type="image/avif" srcset={srcset(n.avif)} sizes="84px" />
@@ -98,7 +98,7 @@ const ENLACES = [
     content: '';
     position: absolute;
     inset: 0;
-    background: rgb(28 1 3 / 0.95);
+    background: rgb(11 9 9 / 0.94);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
     backdrop-filter: blur(14px) saturate(1.2);
     border-bottom: 1px solid var(--linea-plata);
@@ -187,7 +187,7 @@ const ENLACES = [
     .cabecera__wa:hover {
       background: var(--plata-50);
       border-color: var(--plata-50);
-      color: var(--vino-900);
+      color: var(--negro-900);
     }
   }
   .cabecera__menu {
@@ -247,7 +247,7 @@ const ENLACES = [
     padding: 0;
     border: 0;
     color: var(--plata-100);
-    background-color: var(--vino-900);
+    background-color: var(--negro-950);
     display: none;
     flex-direction: column;
     overflow-y: auto;

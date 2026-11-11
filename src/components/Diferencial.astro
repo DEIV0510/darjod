@@ -13,7 +13,7 @@ const ATRIBUTOS = [
 ] as const;
 ---
 
-<section class="casa terciopelo" id="casa" aria-labelledby="casa-titulo">
+<section class="casa noche noche--plana" id="casa" aria-labelledby="casa-titulo">
   <div class="contenedor">
     <div class="casa__cabeza">
       <p class="rotulo aparece"><b>III</b><span>La casa</span></p>
@@ -36,16 +36,16 @@ const ATRIBUTOS = [
 
 <style>
   .casa {
-    padding-block: clamp(80px, 11vw, 150px);
+    padding-block: clamp(56px, 7vw, 104px);
     overflow: hidden;
   }
   .casa__cabeza {
     display: grid;
-    gap: 18px;
-    margin-bottom: clamp(44px, 6vw, 80px);
+    gap: 14px;
+    margin-bottom: clamp(28px, 4vw, 48px);
   }
   .casa__titulo {
-    font-size: clamp(1.875rem, 5.6vw, 3.5rem);
+    font-size: clamp(1.75rem, 5vw, 3rem);
     text-transform: uppercase;
     color: var(--plata-50);
     max-width: 16ch;
@@ -60,7 +60,7 @@ const ATRIBUTOS = [
     grid-template-columns: 56px 1fr;
     column-gap: 20px;
     row-gap: 8px;
-    padding: 30px 0;
+    padding: 22px 0;
     border-bottom: 1px solid var(--linea-plata);
   }
   .casa__num {
@@ -104,7 +104,7 @@ const ATRIBUTOS = [
       grid-template-columns: 1fr;
       align-content: start;
       row-gap: 16px;
-      padding: 48px clamp(24px, 3vw, 48px) 56px;
+      padding: 36px clamp(24px, 3vw, 48px) 40px;
       border-bottom: 0;
     }
     .casa__item + .casa__item {
@@ -115,12 +115,12 @@ const ATRIBUTOS = [
     }
     .casa__item :global(.casa__icono) {
       grid-row: auto;
-      width: 56px;
-      height: 56px;
-      margin-bottom: 18px;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 10px;
     }
     .casa__num {
-      top: 48px;
+      top: 36px;
       right: clamp(24px, 3vw, 48px);
     }
   }

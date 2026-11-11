@@ -10,8 +10,8 @@ export const GET: APIRoute = () =>
       lang: 'es-CO',
       start_url: '/',
       display: 'browser',
-      background_color: '#1c0103',
-      theme_color: '#1c0103',
+      background_color: '#0b0909',
+      theme_color: '#0b0909',
       icons: [
         { src: marca.iconos.i192, sizes: '192x192', type: 'image/png' },
         { src: marca.iconos.i512, sizes: '512x512', type: 'image/png' },

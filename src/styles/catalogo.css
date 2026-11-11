@@ -4,10 +4,10 @@
   position: relative;
   background: var(--papel);
   color: var(--tinta);
-  padding-block: clamp(64px, 8vw, 112px) clamp(64px, 8vw, 110px);
+  padding-block: clamp(48px, 6vw, 88px) clamp(48px, 6vw, 80px);
   color-scheme: light;
 }
-/* Borde superior: el terciopelo «cae» sobre el papel con un filo de plata. */
+/* Borde superior: un filo cálido entre el negro y el papel. */
 .coleccion::before {
   content: '';
   position: absolute;
@@ -17,14 +17,14 @@
 }
 .coleccion__cabeza {
   display: grid;
-  gap: 18px;
-  margin-bottom: clamp(32px, 5vw, 56px);
+  gap: 14px;
+  margin-bottom: clamp(24px, 3.5vw, 40px);
 }
 .coleccion__titulo {
   max-width: 20ch;
-  font-size: clamp(1.875rem, 6.6vw, 3.5rem);
+  font-size: clamp(1.75rem, 6vw, 3.125rem);
   text-transform: uppercase;
-  color: var(--vino-800);
+  color: var(--tinta);
 }
 .coleccion__intro {
   max-width: 44ch;
@@ -109,9 +109,9 @@ html:not(.js) .coleccion__sinjs {
 }
 .filtros input:focus-visible,
 .filtros select:focus-visible {
-  outline: 2px solid var(--vino-600);
+  outline: 2px solid var(--tinta);
   outline-offset: 0;
-  border-color: var(--vino-600);
+  border-color: var(--tinta);
 }
 .filtros__genero {
   grid-column: 1 / -1;
@@ -139,7 +139,7 @@ html:not(.js) .coleccion__sinjs {
   border-left: 0;
 }
 .filtros__genero button[aria-pressed='true'] {
-  background: var(--vino-800);
+  background: var(--tinta);
   color: var(--plata-50);
 }
 @media (hover: hover) {
@@ -187,7 +187,7 @@ html:not(.js) .coleccion__sinjs {
 }
 
 .coleccion__estado {
-  margin: 18px 0 22px;
+  margin: 14px 0 18px;
   font-size: 0.8125rem;
   letter-spacing: 0.06em;
   color: var(--tinta-2);
@@ -217,7 +217,7 @@ html:not(.js) .coleccion__sinjs {
   flex-direction: column;
   min-width: 0;
   content-visibility: auto;
-  contain-intrinsic-size: auto 420px;
+  contain-intrinsic-size: auto 360px;
 }
 .tarjeta.entra {
   animation: tarjeta-entra 0.8s var(--ease) both;
@@ -276,7 +276,7 @@ html:not(.js) .coleccion__sinjs {
   }
 }
 .tarjeta__texto {
-  padding: 16px 2px 14px;
+  padding: 14px 2px 12px;
   flex: 1;
 }
 .tarjeta__casa {
@@ -320,61 +320,53 @@ html:not(.js) .coleccion__sinjs {
   line-height: 1.45;
   color: var(--tinta-2);
 }
+/* Acciones: una fila fina con filetes, sin bloques de color. Al pasar, se rellenan de tinta. */
 .tarjeta__acciones {
   display: grid;
-  gap: 2px;
+  grid-template-columns: 1fr 1fr;
+  border-block: 1px solid var(--linea-papel);
 }
-.tarjeta__comprar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 46px;
-  background: var(--vino-800);
-  color: var(--plata-50);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  overflow: hidden;
-  transition: background-color 0.35s;
-}
-.tarjeta__comprar svg {
-  width: 16px;
-  height: 16px;
-}
-@media (hover: hover) {
-  .tarjeta__comprar:hover {
-    background: var(--vino-600);
-  }
-}
+.tarjeta__comprar,
 .tarjeta__consultar {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
-  padding: 4px 0;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 4px;
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
   color: var(--tinta);
-  text-decoration: underline;
-  text-decoration-color: rgb(29 17 18 / 0.3);
-  text-underline-offset: 5px;
-  transition: text-decoration-color 0.3s;
+  transition:
+    background-color 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+.tarjeta__consultar {
+  border-left: 1px solid var(--linea-papel);
+  color: var(--tinta-2);
+}
+.tarjeta__comprar svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
 }
 @media (hover: hover) {
+  .tarjeta__comprar:hover,
   .tarjeta__consultar:hover {
-    text-decoration-color: var(--vino-600);
+    background: var(--tinta);
+    color: var(--papel);
   }
 }
-@media (max-width: 380px) {
+@media (max-width: 420px) {
+  .tarjeta__comprar,
   .tarjeta__consultar {
-    letter-spacing: 0.06em;
+    gap: 6px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
   }
 }
 
@@ -392,19 +384,19 @@ html:not(.js) .coleccion__sinjs {
 }
 .coleccion__vacio .titular {
   font-size: 1.5rem;
-  color: var(--vino-800);
+  color: var(--tinta);
 }
 .coleccion__mas {
   display: flex;
   justify-content: center;
-  margin-top: clamp(40px, 6vw, 64px);
+  margin-top: clamp(32px, 4vw, 48px);
 }
 .coleccion__mas [data-mas][hidden] {
   display: none;
 }
 .coleccion__nota {
   max-width: 70ch;
-  margin: 40px auto 0;
+  margin: 28px auto 0;
   font-size: 0.75rem;
   line-height: 1.6;
   text-align: center;

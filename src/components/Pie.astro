@@ -20,7 +20,7 @@ const anio = new Date().getFullYear();
       </picture>
       <p class="cursiva">El arte de dejar huella.</p>
     </div>
-    <div>
+    <div class="pie__contacto">
       <h2 class="pie__titulo">Contacto</h2>
       <ul class="pie__lista">
         <li>
@@ -64,16 +64,21 @@ const anio = new Date().getFullYear();
 
 <style>
   .pie {
-    background: var(--vino-950);
+    background: var(--negro-950);
     border-top: 1px solid var(--linea-plata);
-    padding-top: clamp(56px, 8vw, 96px);
+    padding-top: clamp(48px, 6vw, 80px);
     padding-bottom: calc(24px + env(safe-area-inset-bottom));
     color: var(--plata-300);
     font-size: 0.9375rem;
   }
   .pie__rejilla {
     display: grid;
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 20px;
+  }
+  .pie__marca,
+  .pie__contacto {
+    grid-column: 1 / -1;
   }
   .pie__marca picture {
     width: 150px;
@@ -127,7 +132,7 @@ const anio = new Date().getFullYear();
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 12px 24px;
-    margin-top: 56px;
+    margin-top: 40px;
     padding-top: 22px;
     font-size: 0.8125rem;
     color: var(--plata-400);
@@ -149,14 +154,13 @@ const anio = new Date().getFullYear();
     color: var(--plata-300);
     text-underline-offset: 4px;
   }
-  @media (min-width: 720px) {
-    .pie__rejilla {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
   @media (min-width: 1080px) {
     .pie__rejilla {
       grid-template-columns: 1.3fr 1.2fr 1fr 1fr;
+    }
+    .pie__marca,
+    .pie__contacto {
+      grid-column: auto;
     }
   }
 </style>

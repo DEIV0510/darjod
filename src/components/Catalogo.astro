@@ -1,5 +1,5 @@
 ---
-// II · La colección: buscador, filtros (género y casa) y rejilla. Las primeras 24 tarjetas
+// II · La colección: buscador, filtros (género y casa) y rejilla. Las primeras 8 tarjetas
 // vienen en el HTML (se ven al instante y las lee Google); el resto llega de /catalogo.json
 // cuando la sección se acerca a la pantalla o al primer uso de un filtro.
 import '../styles/catalogo.css';
@@ -9,15 +9,17 @@ import { COMPACTOS, CASAS, TOTAL } from '../lib/datos';
 import { vista } from '../lib/catalogo';
 import { wa, MARCA } from '../lib/empresa';
 
-const POR_PAGINA = 24;
-const primeras = COMPACTOS.slice(0, POR_PAGINA).map(vista);
+// Pocas al inicio (el scroll era muy largo: pedido del cliente); «Ver más» suma de a 12.
+const INICIALES = 8;
+const PASO = 12;
+const primeras = COMPACTOS.slice(0, INICIALES).map(vista);
 const arabes = CASAS.filter((c) => c.tipo === 'arabe');
 const disenador = CASAS.filter((c) => c.tipo === 'disenador');
 const otros = CASAS.filter((c) => c.tipo === 'accesorio');
 const pedir = wa(`Hola, ${MARCA}. Busco un perfume que no encontré en la página: `);
 ---
 
-<section class="coleccion sobre-papel" id="coleccion" aria-labelledby="coleccion-titulo" data-total={TOTAL} data-pagina={POR_PAGINA}>
+<section class="coleccion sobre-papel" id="coleccion" aria-labelledby="coleccion-titulo" data-total={TOTAL} data-inicial={INICIALES} data-paso={PASO}>
   <div class="contenedor">
     <header class="coleccion__cabeza">
       <p class="rotulo aparece"><b>II</b><span>La colección</span></p>
@@ -86,17 +88,17 @@ const pedir = wa(`Hola, ${MARCA}. Busco un perfume que no encontré en la págin
     <div class="coleccion__vacio" data-vacio hidden>
       <p class="titular">No la encontramos aquí</p>
       <p>Escríbenos el nombre y te decimos si la podemos conseguir.</p>
-      <a class="boton boton--vino" href={pedir} target="_blank" rel="noopener">
+      <a class="boton boton--tinta" href={pedir} target="_blank" rel="noopener">
         <Icono nombre="whatsapp" />
         Preguntar por WhatsApp
       </a>
     </div>
 
     <div class="coleccion__mas">
-      <button class="boton boton--vino" type="button" data-mas>
+      <button class="boton boton--tinta" type="button" data-mas>
         Ver más fragancias <span data-restantes>({TOTAL - primeras.length})</span>
       </button>
-      <a class="boton boton--vino coleccion__sinjs" href={wa(`Hola, ${MARCA}. Quiero ver el catálogo completo.`)} target="_blank" rel="noopener">
+      <a class="boton boton--tinta coleccion__sinjs" href={wa(`Hola, ${MARCA}. Quiero ver el catálogo completo.`)} target="_blank" rel="noopener">
         <Icono nombre="whatsapp" />
         Pedir el catálogo completo
       </a>

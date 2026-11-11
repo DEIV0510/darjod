@@ -36,8 +36,9 @@ import Imagen from './Imagen.astro';
 <style>
   .exp {
     position: relative;
-    padding-block: clamp(80px, 11vw, 160px);
-    background: radial-gradient(80% 60% at 80% 20%, rgb(80 5 9 / 0.35), transparent 70%), var(--vino-950);
+    padding-block: clamp(56px, 7vw, 112px);
+    border-top: 1px solid var(--linea-plata);
+    background: var(--negro-900);
     overflow: hidden;
   }
   .exp__rejilla {
@@ -52,7 +53,7 @@ import Imagen from './Imagen.astro';
   .exp figure {
     position: relative;
     overflow: hidden;
-    background: var(--vino-800);
+    background: var(--negro-800);
   }
   .exp figure :global(.exp__foto) {
     display: block;
@@ -66,12 +67,14 @@ import Imagen from './Imagen.astro';
   }
   .exp__grande {
     --r: clamp(20px, 6vw, 44px);
-    grid-column: 2 / -1;
-    aspect-ratio: 4 / 5;
+    grid-column: 1 / 8;
+    grid-row: 3;
+    aspect-ratio: 3 / 4;
   }
   .exp__frase {
     grid-column: 1 / -1;
-    margin: 28px 0 20px;
+    grid-row: 2;
+    margin: 0 0 8px;
   }
   .exp__frase p {
     font-size: clamp(2rem, 8.4vw, 4.25rem);
@@ -89,15 +92,18 @@ import Imagen from './Imagen.astro';
     color: var(--plata-50);
   }
   .exp__media {
-    --r: clamp(14px, 4vw, 28px);
-    grid-column: 1 / 7;
-    aspect-ratio: 9 / 10;
+    --r: clamp(12px, 3vw, 28px);
+    grid-column: 8 / -1;
+    grid-row: 3;
+    align-self: start;
+    aspect-ratio: 1;
   }
   .exp__ancha {
-    --r: clamp(14px, 4vw, 30px);
-    grid-column: 7 / -1;
+    --r: clamp(12px, 3vw, 30px);
+    grid-column: 8 / -1;
+    grid-row: 3;
     align-self: end;
-    aspect-ratio: 1 / 1.1;
+    aspect-ratio: 1;
   }
   .exp__ancha :global(img) {
     object-position: 38% 50%;
@@ -110,7 +116,7 @@ import Imagen from './Imagen.astro';
     .exp__grande {
       grid-column: 1 / 6;
       grid-row: 2 / 5;
-      aspect-ratio: 4 / 5.2;
+      aspect-ratio: 4 / 4.8;
     }
     .exp__frase {
       grid-column: 7 / -1;
@@ -121,14 +127,15 @@ import Imagen from './Imagen.astro';
     .exp__media {
       grid-column: 7 / 10;
       grid-row: 3 / 5;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 3 / 3.6;
       align-self: start;
     }
     .exp__ancha {
       grid-column: 10 / -1;
-      grid-row: 4;
-      aspect-ratio: 4 / 5;
-      transform: translateY(18%);
+      grid-row: 3 / 5;
+      aspect-ratio: 3 / 3.6;
+      align-self: start;
+      margin-top: 18%;
     }
   }
 </style>

@@ -1,6 +1,6 @@
 ---
 // Héroe: «TU ESENCIA. TU DISTINCIÓN.» con una vitrina de dos ventanas (la forma del marco del
-// logo) sobre terciopelo. La foto principal es el LCP: se precarga desde Base.astro.
+// logo) sobre negro. La foto principal es el LCP: se precarga desde Base.astro.
 import { marca } from '../lib/marca';
 import Imagen from './Imagen.astro';
 import Icono from './Icono.astro';
@@ -10,7 +10,7 @@ import { TAMANOS_HEROE } from '../lib/medidas';
 const redondeo = Math.floor(TOTAL_PERFUMES / 100) * 100;
 ---
 
-<section class="heroe terciopelo" id="inicio" aria-labelledby="heroe-titulo">
+<section class="heroe noche" id="inicio" aria-labelledby="heroe-titulo">
   <div class="heroe__rejilla contenedor">
     <div class="heroe__vitrina">
       <div class="heroe__principal ventana">
@@ -71,7 +71,7 @@ const redondeo = Math.floor(TOTAL_PERFUMES / 100) * 100;
     width: 84%;
     aspect-ratio: 4 / 4.4;
     margin-left: auto;
-    background: var(--vino-700);
+    background: var(--negro-800);
   }
   .heroe__principal :global(.heroe__foto),
   .heroe__segunda :global(.heroe__foto) {
@@ -89,21 +89,21 @@ const redondeo = Math.floor(TOTAL_PERFUMES / 100) * 100;
     bottom: 0;
     width: 40%;
     aspect-ratio: 3 / 4;
-    background: var(--vino-700);
+    background: var(--negro-800);
     box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.6);
   }
   .heroe__segunda :global(img) {
     object-position: 50% 40%;
   }
-  /* Velo granate en el borde de las fotos: las funde con el terciopelo. */
+  /* Velo oscuro en el borde de las fotos: las funde con el fondo. */
   .heroe__principal::after,
   .heroe__segunda::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgb(28 1 3 / 0) 55%, rgb(28 1 3 / 0.45)),
-      radial-gradient(120% 90% at 50% 40%, transparent 60%, rgb(28 1 3 / 0.35));
+      linear-gradient(180deg, rgb(11 9 9 / 0) 55%, rgb(11 9 9 / 0.45)),
+      radial-gradient(120% 90% at 50% 40%, transparent 60%, rgb(11 9 9 / 0.35));
     pointer-events: none;
   }
   .heroe__lema {

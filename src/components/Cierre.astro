@@ -1,14 +1,14 @@
 ---
-// VI · Cierre comercial: el logo oficial completo (con su marco) sobre terciopelo y la última
+// VI · Cierre comercial: el logo oficial completo (con su marco) sobre negro y la última
 // llamada a la acción.
 import { marca, srcset } from '../lib/marca';
 import Icono from './Icono.astro';
 import { wa, MENSAJES } from '../lib/empresa';
 const l = marca.logo;
-const tam = '(min-width: 960px) 560px, 86vw';
+const tam = '(min-width: 960px) 420px, 72vw';
 ---
 
-<section class="cierre terciopelo" aria-labelledby="cierre-titulo">
+<section class="cierre noche" aria-labelledby="cierre-titulo">
   <div class="cierre__dentro contenedor">
     <picture class="cierre__logo aparece">
       <source type="image/avif" srcset={srcset(l.avif)} sizes={tam} />
@@ -24,17 +24,18 @@ const tam = '(min-width: 960px) 560px, 86vw';
 
 <style>
   .cierre {
-    padding-block: clamp(80px, 10vw, 140px);
+    padding-block: clamp(56px, 7vw, 104px);
+    border-top: 1px solid var(--linea-plata);
     text-align: center;
     overflow: hidden;
   }
   .cierre__dentro {
     display: grid;
     justify-items: center;
-    gap: 32px;
+    gap: 26px;
   }
   .cierre__logo {
-    width: min(86vw, 560px);
+    width: min(72vw, 420px);
   }
   .cierre__logo img {
     width: 100%;
@@ -42,7 +43,7 @@ const tam = '(min-width: 960px) 560px, 86vw';
   }
   .cierre__titulo {
     max-width: 18ch;
-    font-size: clamp(1.75rem, 5.4vw, 3.25rem);
+    font-size: clamp(1.625rem, 4.6vw, 2.75rem);
     text-transform: uppercase;
     color: var(--plata-50);
   }

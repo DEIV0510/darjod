@@ -5,7 +5,7 @@ import Icono from './Icono.astro';
 import { wa, MENSAJES, WHATSAPP, UBICACION, HORARIO } from '../lib/empresa';
 ---
 
-<section class="contacto" id="contacto" aria-labelledby="contacto-titulo">
+<section class="contacto sobre-papel" id="contacto" aria-labelledby="contacto-titulo">
   <div class="contacto__rejilla contenedor">
     <div class="contacto__lugar">
       <p class="rotulo aparece"><b>V</b><span>Ubicación y contacto</span></p>
@@ -29,7 +29,7 @@ import { wa, MENSAJES, WHATSAPP, UBICACION, HORARIO } from '../lib/empresa';
       </div>
     </dl>
       <div class="contacto__acciones aparece" style="--i:4">
-        <a class="boton" href={wa(MENSAJES.ubicacion)} target="_blank" rel="noopener">
+        <a class="boton boton--tinta" href={wa(MENSAJES.ubicacion)} target="_blank" rel="noopener">
           <Icono nombre="whatsapp" />
           Escribir por WhatsApp
         </a>
@@ -45,27 +45,28 @@ import { wa, MENSAJES, WHATSAPP, UBICACION, HORARIO } from '../lib/empresa';
 <style>
   .contacto {
     position: relative;
-    padding-block: clamp(80px, 10vw, 140px);
-    background: var(--vino-900);
-    border-top: 1px solid var(--linea-plata);
+    padding-block: clamp(56px, 7vw, 104px);
+    background: var(--papel);
+    color: var(--tinta);
+    color-scheme: light;
   }
   .contacto__rejilla {
     display: grid;
-    gap: 48px;
+    gap: 36px;
   }
   .contacto__ciudad {
-    margin-top: 22px;
-    font-size: clamp(3.25rem, 15vw, 9rem);
+    margin-top: 18px;
+    font-size: clamp(3rem, 13vw, 7.5rem);
     line-height: 0.92;
     text-transform: uppercase;
     letter-spacing: 0.01em;
-    color: var(--plata-50);
+    color: var(--tinta);
   }
   .contacto__region {
     margin-top: 14px;
     font: 500 clamp(1.375rem, 4.4vw, 2rem) / 1.2 var(--font-cursiva);
     font-style: italic;
-    color: var(--plata-100);
+    color: var(--tinta-2);
   }
   .contacto__coord {
     display: flex;
@@ -74,45 +75,45 @@ import { wa, MENSAJES, WHATSAPP, UBICACION, HORARIO } from '../lib/empresa';
     margin-top: 22px;
     font-size: 0.75rem;
     letter-spacing: 0.28em;
-    color: var(--plata-400);
+    color: var(--tinta-2);
   }
   .contacto__datos {
     display: grid;
     margin: 0;
-    border-top: 1px solid var(--linea-plata);
+    border-top: 1px solid var(--linea-papel);
   }
   .contacto__datos > div {
     display: grid;
     gap: 6px;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--linea-plata);
+    padding: 16px 0;
+    border-bottom: 1px solid var(--linea-papel);
   }
   .contacto__datos dt {
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--plata-400);
+    color: var(--tinta-2);
   }
   .contacto__datos dd {
     margin: 0;
     font-size: 1.0625rem;
-    color: var(--plata-50);
+    color: var(--tinta);
   }
   .contacto__datos dd a {
     text-decoration: none;
-    border-bottom: 1px solid rgb(230 228 232 / 0.35);
+    border-bottom: 1px solid rgb(29 17 18 / 0.35);
     padding-bottom: 2px;
   }
   @media (hover: hover) {
     .contacto__datos dd a:hover {
-      border-color: var(--plata-50);
+      border-color: var(--tinta);
     }
   }
   .contacto__acciones {
     display: grid;
     gap: 12px;
-    padding-top: 28px;
+    padding-top: 24px;
   }
   @media (min-width: 560px) {
     .contacto__acciones {
