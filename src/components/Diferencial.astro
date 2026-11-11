@@ -1,0 +1,127 @@
+---
+// III · La casa: tres atributos en un tríptico separado por filetes de plata.
+// El brief pedía «Perfumería original / Productos auténticos»; por acuerdo con el usuario el
+// sitio no afirma originalidad (el proveedor marca su catálogo como 1.1). Se usa un dato
+// verificable: el tamaño del catálogo.
+import Icono from './Icono.astro';
+import { TOTAL_PERFUMES } from '../lib/datos';
+const redondeo = Math.floor(TOTAL_PERFUMES / 100) * 100;
+const ATRIBUTOS = [
+  { icono: 'diamante', titulo: `Más de ${redondeo} fragancias`, texto: 'Casas árabes, de diseñador y nicho, para dama, caballero y unisex.' },
+  { icono: 'reloj', titulo: 'Atención 24 horas', texto: 'Estamos disponibles para atender tus consultas.' },
+  { icono: 'frasco', titulo: 'Experiencia exclusiva', texto: 'Encuentra una fragancia que represente tu personalidad.' },
+] as const;
+---
+
+<section class="casa terciopelo" id="casa" aria-labelledby="casa-titulo">
+  <div class="contenedor">
+    <div class="casa__cabeza">
+      <p class="rotulo aparece"><b>III</b><span>La casa</span></p>
+      <h2 class="titular casa__titulo aparece" id="casa-titulo" style="--i:1">Una firma que se queda</h2>
+    </div>
+    <ol class="casa__lista">
+      {
+        ATRIBUTOS.map((a, i) => (
+          <li class="casa__item aparece" style={`--i:${i + 1}`}>
+            <span class="casa__num" aria-hidden="true">{['I', 'II', 'III'][i]}</span>
+            <Icono nombre={a.icono} clase="casa__icono" />
+            <h3 class="titular">{a.titulo}</h3>
+            <p>{a.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .casa {
+    padding-block: clamp(80px, 11vw, 150px);
+    overflow: hidden;
+  }
+  .casa__cabeza {
+    display: grid;
+    gap: 18px;
+    margin-bottom: clamp(44px, 6vw, 80px);
+  }
+  .casa__titulo {
+    font-size: clamp(1.875rem, 5.6vw, 3.5rem);
+    text-transform: uppercase;
+    color: var(--plata-50);
+    max-width: 16ch;
+  }
+  .casa__lista {
+    display: grid;
+    border-top: 1px solid var(--linea-plata);
+  }
+  .casa__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    column-gap: 20px;
+    row-gap: 8px;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--linea-plata);
+  }
+  .casa__num {
+    position: absolute;
+    right: 0;
+    top: 26px;
+    font: 500 0.75rem/1 var(--font-titular);
+    letter-spacing: 0.2em;
+    color: var(--plata-400);
+  }
+  .casa__item :global(.casa__icono) {
+    grid-row: span 2;
+    width: 48px;
+    height: 48px;
+    color: var(--plata-100);
+  }
+  .casa__item h3 {
+    font-size: clamp(1.125rem, 3.8vw, 1.375rem);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--plata-50);
+    padding-right: 36px;
+  }
+  .casa__item p {
+    color: var(--plata-300);
+    max-width: 34ch;
+  }
+  @media (min-width: 900px) {
+    .casa__cabeza {
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+    }
+    .casa__cabeza .rotulo {
+      grid-column: 1 / -1;
+    }
+    .casa__lista {
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--linea-plata);
+    }
+    .casa__item {
+      grid-template-columns: 1fr;
+      align-content: start;
+      row-gap: 16px;
+      padding: 48px clamp(24px, 3vw, 48px) 56px;
+      border-bottom: 0;
+    }
+    .casa__item + .casa__item {
+      border-left: 1px solid var(--linea-plata);
+    }
+    .casa__item:first-child {
+      padding-left: 0;
+    }
+    .casa__item :global(.casa__icono) {
+      grid-row: auto;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 18px;
+    }
+    .casa__num {
+      top: 48px;
+      right: clamp(24px, 3vw, 48px);
+    }
+  }
+</style>

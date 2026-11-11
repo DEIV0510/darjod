@@ -1,0 +1,58 @@
+---
+// Botón flotante de WhatsApp: discreto, con la forma de «ventana» del logo. Aparece después
+// del héroe (allí ya hay dos botones de compra) y se aparta en contacto, cierre y pie, que
+// tienen sus propios botones de WhatsApp.
+import Icono from './Icono.astro';
+import { wa, MENSAJES } from '../lib/empresa';
+---
+
+<a class="flotante" id="flotante" href={wa(MENSAJES.general)} target="_blank" rel="noopener" aria-label="Comprar por WhatsApp">
+  <span class="flotante__forma ventana"><Icono nombre="whatsapp" /></span>
+</a>
+
+<style>
+  .flotante {
+    position: fixed;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 40;
+    width: 56px;
+    height: 56px;
+    filter: drop-shadow(0 10px 22px rgb(0 0 0 / 0.45));
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    pointer-events: none;
+    transition:
+      opacity 0.5s var(--ease),
+      transform 0.5s var(--ease);
+  }
+  :global(.flotante.is-visible) {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  html:not(.js) .flotante {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .flotante__forma {
+    --r: 10px;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    background: var(--vino-600);
+    color: var(--plata-50);
+    transition: background-color 0.35s;
+  }
+  .flotante :global(svg) {
+    width: 26px;
+    height: 26px;
+  }
+  @media (hover: hover) {
+    .flotante:hover .flotante__forma {
+      background: var(--vino-500);
+    }
+  }
+</style>

@@ -1,0 +1,257 @@
+{
+  "logo": {
+    "ancho": 1568,
+    "alto": 1003,
+    "avif": [
+      [
+        "/marca/logo-420.e4468f0c.avif",
+        420
+      ],
+      [
+        "/marca/logo-720.b2e34a11.avif",
+        720
+      ],
+      [
+        "/marca/logo-1040.d9d0b07c.avif",
+        1040
+      ]
+    ],
+    "webp": [
+      [
+        "/marca/logo-420.83431276.webp",
+        420
+      ],
+      [
+        "/marca/logo-720.ed93b52e.webp",
+        720
+      ],
+      [
+        "/marca/logo-1040.83e5aa28.webp",
+        1040
+      ]
+    ]
+  },
+  "palabra": {
+    "ancho": 734,
+    "alto": 200,
+    "avif": [
+      [
+        "/marca/palabra-200.3cd0f7e5.avif",
+        200
+      ],
+      [
+        "/marca/palabra-400.8bfbdc42.avif",
+        400
+      ]
+    ],
+    "webp": [
+      [
+        "/marca/palabra-200.b7a27cf0.webp",
+        200
+      ],
+      [
+        "/marca/palabra-400.a1eb68bc.webp",
+        400
+      ]
+    ]
+  },
+  "nucleo": {
+    "ancho": 734,
+    "alto": 712,
+    "avif": [
+      [
+        "/marca/nucleo-240.b8922f05.avif",
+        240
+      ],
+      [
+        "/marca/nucleo-360.fab9ced4.avif",
+        360
+      ],
+      [
+        "/marca/nucleo-480.2550231c.avif",
+        480
+      ]
+    ],
+    "webp": [
+      [
+        "/marca/nucleo-240.27b7fa0c.webp",
+        240
+      ],
+      [
+        "/marca/nucleo-360.2cbbb040.webp",
+        360
+      ],
+      [
+        "/marca/nucleo-480.4333f628.webp",
+        480
+      ]
+    ]
+  },
+  "iconos": {
+    "i16": "/marca/icono-i16.384ae6a0.png",
+    "i32": "/marca/icono-i32.0b0acfb9.png",
+    "i180": "/marca/icono-i180.f7d84b38.png",
+    "i192": "/marca/icono-i192.19ebd6b6.png",
+    "i512": "/marca/icono-i512.313798bf.png",
+    "m512": "/marca/icono-m512.226784f1.png"
+  },
+  "fotos": {
+    "khamrah": {
+      "ancho": 824,
+      "alto": 960,
+      "alt": "Frasco de Khamrah de Lattafa con su tapa de cristal tallado",
+      "avif": [
+        [
+          "/marca/khamrah-420.f35740d6.avif",
+          420
+        ],
+        [
+          "/marca/khamrah-640.1f78dfae.avif",
+          640
+        ],
+        [
+          "/marca/khamrah-824.d1f7e03a.avif",
+          824
+        ]
+      ],
+      "webp": [
+        [
+          "/marca/khamrah-420.2104fdd5.webp",
+          420
+        ],
+        [
+          "/marca/khamrah-640.5db0d127.webp",
+          640
+        ],
+        [
+          "/marca/khamrah-824.85acebfc.webp",
+          824
+        ]
+      ]
+    },
+    "eclaire": {
+      "ancho": 1054,
+      "alto": 1450,
+      "alt": "Estuche Eclaire de Lattafa: perfume, crema corporal y atomizador de viaje",
+      "avif": [
+        [
+          "/marca/eclaire-320.4fbe5ccd.avif",
+          320
+        ],
+        [
+          "/marca/eclaire-560.6ec9e868.avif",
+          560
+        ],
+        [
+          "/marca/eclaire-900.219e1ad9.avif",
+          900
+        ]
+      ],
+      "webp": [
+        [
+          "/marca/eclaire-320.c55b227b.webp",
+          320
+        ],
+        [
+          "/marca/eclaire-560.871c1e38.webp",
+          560
+        ],
+        [
+          "/marca/eclaire-900.53ab830a.webp",
+          900
+        ]
+      ]
+    },
+    "amber": {
+      "ancho": 840,
+      "alto": 1050,
+      "alt": "Amber Oud Gold Edition de Al Haramain, 120 ml",
+      "avif": [
+        [
+          "/marca/amber-480.1e1fe0e8.avif",
+          480
+        ],
+        [
+          "/marca/amber-760.28a1525f.avif",
+          760
+        ]
+      ],
+      "webp": [
+        [
+          "/marca/amber-480.e5e08a73.webp",
+          480
+        ],
+        [
+          "/marca/amber-760.10e755ea.webp",
+          760
+        ]
+      ]
+    },
+    "clubDeNuit": {
+      "ancho": 900,
+      "alto": 1000,
+      "alt": "Estuche Club de Nuit Intense Man de Armaf",
+      "avif": [
+        [
+          "/marca/clubDeNuit-360.3bc7a7c0.avif",
+          360
+        ],
+        [
+          "/marca/clubDeNuit-600.e8108f96.avif",
+          600
+        ],
+        [
+          "/marca/clubDeNuit-900.f83cd9ea.avif",
+          900
+        ]
+      ],
+      "webp": [
+        [
+          "/marca/clubDeNuit-360.0400fa88.webp",
+          360
+        ],
+        [
+          "/marca/clubDeNuit-600.393f41b9.webp",
+          600
+        ],
+        [
+          "/marca/clubDeNuit-900.6188f162.webp",
+          900
+        ]
+      ]
+    },
+    "khamrahCofre": {
+      "ancho": 1180,
+      "alto": 640,
+      "alt": "Cofre de Khamrah de Lattafa con body mist, perfume y accesorios",
+      "avif": [
+        [
+          "/marca/khamrahCofre-480.9d420ad6.avif",
+          480
+        ],
+        [
+          "/marca/khamrahCofre-800.0e986108.avif",
+          800
+        ],
+        [
+          "/marca/khamrahCofre-1180.dc47e5a1.avif",
+          1180
+        ]
+      ],
+      "webp": [
+        [
+          "/marca/khamrahCofre-480.574f3bbd.webp",
+          480
+        ],
+        [
+          "/marca/khamrahCofre-800.ae2bc8e7.webp",
+          800
+        ],
+        [
+          "/marca/khamrahCofre-1180.047666c7.webp",
+          1180
+        ]
+      ]
+    }
+  }
+}

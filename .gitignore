@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.cache/
+.vercel/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+qa-salida/
+
+# Material del cliente: se suben los logos y las fotos propias (fuente de scripts/marca.mjs).
+# NO se suben las capturas de redes (traen datos personales de terceros) ni las 505 fotos
+# originales del proveedor (57 MB; scripts/catalogo.mjs las vuelve a descargar).
+_material-cliente/capturas/
+_material-cliente/marketplace/fotos/

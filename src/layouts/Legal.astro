@@ -1,0 +1,125 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  actualizado: string;
+}
+const { titulo, descripcion, actualizado } = Astro.props;
+const OTRAS = [
+  { href: '/privacidad/', texto: 'Política de privacidad' },
+  { href: '/datos-personales/', texto: 'Tratamiento de datos personales' },
+  { href: '/terminos/', texto: 'Términos y condiciones' },
+];
+const actual = Astro.url.pathname;
+---
+
+<Base titulo={`${titulo} · DARJOD PARFUMS`} descripcion={descripcion} base="/">
+  <article class="legal">
+    <header class="legal__cabeza terciopelo">
+      <div class="contenedor">
+        <a class="legal__volver" href="/">← Volver a DARJOD PARFUMS</a>
+        <h1 class="titular">{titulo}</h1>
+        <p>Última actualización: {actualizado}</p>
+      </div>
+    </header>
+    <div class="legal__cuerpo contenedor">
+      <div class="legal__texto"><slot /></div>
+      <nav class="legal__otras" aria-label="Documentos legales">
+        <ul>
+          {
+            OTRAS.map((o) => (
+              <li>
+                <a href={o.href} aria-current={actual === o.href ? 'page' : undefined}>
+                  {o.texto}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .legal__cabeza {
+    padding: calc(var(--cabecera) + 56px) 0 56px;
+  }
+  .legal__volver {
+    display: inline-block;
+    margin-bottom: 28px;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    color: var(--plata-300);
+    text-underline-offset: 4px;
+  }
+  .legal__cabeza h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    text-transform: uppercase;
+    color: var(--plata-50);
+  }
+  .legal__cabeza p {
+    margin-top: 14px;
+    color: var(--plata-300);
+    font-size: 0.875rem;
+  }
+  .legal__cuerpo {
+    display: grid;
+    gap: 48px;
+    padding-block: 56px 96px;
+    background: var(--vino-950);
+  }
+  .legal__texto {
+    max-width: 70ch;
+    color: var(--plata-100);
+  }
+  .legal__texto :global(h2) {
+    margin: 40px 0 12px;
+    font: 500 1.25rem/1.3 var(--font-titular);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--plata-50);
+  }
+  .legal__texto :global(p),
+  .legal__texto :global(ul) {
+    margin-bottom: 14px;
+  }
+  .legal__texto :global(ul) {
+    padding-left: 1.2em;
+    list-style: square;
+  }
+  .legal__texto :global(li) {
+    margin-bottom: 6px;
+  }
+  .legal__texto :global(a) {
+    color: var(--plata-50);
+    text-underline-offset: 4px;
+  }
+  .legal__otras ul {
+    display: grid;
+    gap: 4px;
+    border-top: 1px solid var(--linea-plata);
+  }
+  .legal__otras a {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--linea-plata);
+    color: var(--plata-300);
+    text-decoration: none;
+  }
+  .legal__otras a[aria-current='page'] {
+    color: var(--plata-50);
+  }
+  @media (min-width: 960px) {
+    .legal__cuerpo {
+      grid-template-columns: 1fr 300px;
+      align-items: start;
+    }
+    .legal__otras {
+      position: sticky;
+      top: calc(var(--cabecera) + 32px);
+    }
+  }
+</style>

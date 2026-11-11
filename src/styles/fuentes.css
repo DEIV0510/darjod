@@ -1,0 +1,52 @@
+/* Generado por scripts/fuentes.mjs — no editar a mano. */
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/fonts/cinzel.3dcbbcf2.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-cursiva.364873ee.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Jost';
+  src: url('/fonts/jost.ff6d2b16.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cinzel Fallback";
+  src: local('Times New Roman'), local('TimesNewRomanPSMT');
+  ascent-override: 71.3129%;
+  descent-override: 27.1808%;
+  line-gap-override: 0%;
+  size-adjust: 136.8615%;
+}
+@font-face {
+  font-family: "Cormorant Garamond Fallback";
+  font-style: italic;
+  src: local('Times New Roman'), local('TimesNewRomanPSMT');
+  ascent-override: 95.2728%;
+  descent-override: 29.5923%;
+  line-gap-override: 0%;
+  size-adjust: 96.9846%;
+}
+@font-face {
+  font-family: "Jost Fallback";
+  src: local('Arial'), local('ArialMT');
+  ascent-override: 111.4502%;
+  descent-override: 39.0596%;
+  line-gap-override: 0%;
+  size-adjust: 96.007%;
+}
+:root {
+  --font-titular: Cinzel, "Cinzel Fallback", "Times New Roman", Georgia, serif;
+  --font-cursiva: "Cormorant Garamond", "Cormorant Garamond Fallback", "Times New Roman", Georgia, serif;
+  --font-texto: Jost, "Jost Fallback", Arial, system-ui, sans-serif;
+}

@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import Icono from '../components/Icono.astro';
+import { wa, MENSAJES } from '../lib/empresa';
+---
+
+<Base titulo="Página no encontrada · DARJOD PARFUMS" descripcion="La página que buscas no existe." noindex base="/">
+  <section class="error terciopelo">
+    <div class="contenedor">
+      <p class="rotulo"><b>404</b><span>Sin rastro</span></p>
+      <h1 class="titular">Esta página no dejó huella</h1>
+      <p>La dirección no existe o cambió. La colección completa está en la portada.</p>
+      <div class="error__acciones">
+        <a class="boton" href="/#coleccion">Ver la colección</a>
+        <a class="boton boton--linea" href={wa(MENSAJES.general)} target="_blank" rel="noopener"><Icono nombre="whatsapp" />Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .error {
+    min-height: 80svh;
+    display: grid;
+    align-items: center;
+    padding: calc(var(--cabecera) + 48px) 0 72px;
+  }
+  .error h1 {
+    margin-top: 22px;
+    font-size: clamp(2.25rem, 7vw, 4.5rem);
+    text-transform: uppercase;
+    max-width: 14ch;
+    color: var(--plata-50);
+  }
+  .error p:not(.rotulo) {
+    margin-top: 18px;
+    color: var(--plata-300);
+  }
+  .error__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+</style>

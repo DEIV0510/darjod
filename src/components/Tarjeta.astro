@@ -1,0 +1,41 @@
+---
+// Tarjeta de producto. El mismo marcado (sin datos) va en <template id="tpl-tarjeta"> para que
+// el filtro del navegador cree tarjetas nuevas sin escribir HTML como texto (CSP con Trusted
+// Types). Si se cambia aquí, src/scripts/catalogo.ts llena los mismos [data-c] .
+import Icono from './Icono.astro';
+import { TAMANOS_TARJETA, type Vista } from '../lib/catalogo';
+
+interface Props {
+  v?: Vista;
+  /** Las primeras de la rejilla cargan sin espera (están cerca del primer pantallazo). */
+  pronto?: boolean;
+}
+const { v, pronto = false } = Astro.props;
+---
+
+<li class:list={['tarjeta', v?.blanco && 'tarjeta--blanco']} data-id={v?.id}>
+  <div class="tarjeta__foto">
+    <picture>
+      <source type="image/avif" srcset={v?.avif} sizes={TAMANOS_TARJETA} data-c="avif" />
+      <img src={v?.src} srcset={v?.webp} sizes={TAMANOS_TARJETA} width="640" height="640" alt={v?.alt ?? ''} loading={pronto ? 'eager' : 'lazy'} fetchpriority={pronto ? 'low' : 'auto'} decoding="async" data-c="img" />
+    </picture>
+    <span class="tarjeta__brillo" aria-hidden="true"></span>
+  </div>
+  <div class="tarjeta__texto">
+    <p class="tarjeta__casa">
+      <span data-c="casa">{v?.casa}</span>
+      <abbr class="tarjeta__11" title="Versión 1.1 de la fragancia de esta casa" data-c="es11" hidden={!v?.es11}>1.1</abbr>
+    </p>
+    <h3 class="tarjeta__nombre" data-c="nombre">{v?.nombre}</h3>
+    <p class="tarjeta__meta" data-c="meta">{v?.meta}</p>
+  </div>
+  <div class="tarjeta__acciones">
+    <a class="tarjeta__comprar" href={v?.comprar} target="_blank" rel="noopener" aria-label={v ? `Comprar ${v.nombre} por WhatsApp` : undefined} data-c="comprar">
+      <Icono nombre="whatsapp" />
+      Comprar
+    </a>
+    <a class="tarjeta__consultar" href={v?.consultar} target="_blank" rel="noopener" aria-label={v ? `Consultar disponibilidad de ${v.nombre} por WhatsApp` : undefined} data-c="consultar">
+      Consultar disponibilidad
+    </a>
+  </div>
+</li>

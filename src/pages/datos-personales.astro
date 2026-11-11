@@ -1,0 +1,62 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { wa, WHATSAPP, MARCA } from '../lib/empresa';
+const contacto = wa(`Hola, ${MARCA}. Quiero ejercer mis derechos sobre mis datos personales.`);
+---
+
+<Legal
+  titulo="Tratamiento de datos personales"
+  descripcion="Política de tratamiento de datos personales de DARJOD PARFUMS conforme a la Ley 1581 de 2012."
+  actualizado="10 de noviembre de 2026"
+>
+  <p>
+    Esta política se adopta en cumplimiento de la Ley Estatutaria 1581 de 2012 y sus decretos reglamentarios (compilados en el Decreto Único 1074 de 2015), que regulan la protección de
+    datos personales en Colombia.
+  </p>
+
+  <h2>Responsable del tratamiento</h2>
+  <ul>
+    <li>Nombre: {MARCA}.</li>
+    <li>Domicilio: Calarcá, Quindío, Colombia.</li>
+    <li>Canal de atención: WhatsApp {WHATSAPP.conIndicativo} (atención 24 horas).</li>
+  </ul>
+
+  <h2>Datos que tratamos</h2>
+  <p>
+    Solo los que tú nos compartes al escribirnos por WhatsApp para consultar o comprar: nombre, número de teléfono, el contenido de la conversación y, si haces un pedido, los datos
+    necesarios para entregártelo. No pedimos datos sensibles ni datos de niñas, niños o adolescentes, y no recogemos datos a través de este sitio web.
+  </p>
+
+  <h2>Finalidades</h2>
+  <ul>
+    <li>Responder tus consultas sobre fragancias y disponibilidad.</li>
+    <li>Gestionar, coordinar y hacer seguimiento a tus pedidos.</li>
+    <li>Atender peticiones, quejas, reclamos y solicitudes relacionadas con tu compra.</li>
+    <li>Enviarte información comercial solo si nos das tu autorización expresa, que puedes retirar en cualquier momento.</li>
+  </ul>
+  <p>No vendemos ni cedemos tus datos a terceros para fines comerciales.</p>
+
+  <h2>Tus derechos</h2>
+  <p>Como titular de los datos tienes derecho a:</p>
+  <ul>
+    <li>Conocer, actualizar y rectificar tus datos personales.</li>
+    <li>Solicitar prueba de la autorización otorgada.</li>
+    <li>Ser informado sobre el uso que se ha dado a tus datos.</li>
+    <li>Presentar quejas ante la Superintendencia de Industria y Comercio por infracciones a la ley.</li>
+    <li>Revocar la autorización y pedir la supresión de tus datos cuando no exista un deber legal o contractual de conservarlos.</li>
+    <li>Acceder gratuitamente a tus datos personales.</li>
+  </ul>
+
+  <h2>Cómo ejercerlos</h2>
+  <p>
+    Escríbenos por <a href={contacto} target="_blank" rel="noopener">WhatsApp al {WHATSAPP.conIndicativo}</a> indicando tu nombre, tu solicitud y un medio de respuesta. Las consultas
+    se atienden en un plazo máximo de diez (10) días hábiles y los reclamos en un máximo de quince (15) días hábiles, prorrogables en los términos del artículo 15 de la Ley 1581 de
+    2012.
+  </p>
+
+  <h2>Autorización y vigencia</h2>
+  <p>
+    Al escribirnos y compartir tus datos para una consulta o compra, autorizas su tratamiento para las finalidades descritas. Los datos se conservan mientras sean necesarios para esas
+    finalidades o para cumplir obligaciones legales. Esta política rige desde la fecha de su publicación; cualquier cambio sustancial se informará en esta página.
+  </p>
+</Legal>

@@ -1,0 +1,49 @@
+---
+// VI · Cierre comercial: el logo oficial completo (con su marco) sobre terciopelo y la última
+// llamada a la acción.
+import { marca, srcset } from '../lib/marca';
+import Icono from './Icono.astro';
+import { wa, MENSAJES } from '../lib/empresa';
+const l = marca.logo;
+const tam = '(min-width: 960px) 560px, 86vw';
+---
+
+<section class="cierre terciopelo" aria-labelledby="cierre-titulo">
+  <div class="cierre__dentro contenedor">
+    <picture class="cierre__logo aparece">
+      <source type="image/avif" srcset={srcset(l.avif)} sizes={tam} />
+      <img src={l.webp[1]![0]} srcset={srcset(l.webp)} sizes={tam} width="720" height={Math.round((l.alto / l.ancho) * 720)} alt="Logotipo de DARJOD PARFUMS" loading="lazy" decoding="async" />
+    </picture>
+    <h2 class="titular cierre__titulo aparece" id="cierre-titulo" style="--i:1">Encuentra tu próxima fragancia.</h2>
+    <a class="boton aparece" style="--i:2" href={wa(MENSAJES.comprarAhora)} target="_blank" rel="noopener">
+      <Icono nombre="whatsapp" />
+      Comprar ahora
+    </a>
+  </div>
+</section>
+
+<style>
+  .cierre {
+    padding-block: clamp(80px, 10vw, 140px);
+    text-align: center;
+    overflow: hidden;
+  }
+  .cierre__dentro {
+    display: grid;
+    justify-items: center;
+    gap: 32px;
+  }
+  .cierre__logo {
+    width: min(86vw, 560px);
+  }
+  .cierre__logo img {
+    width: 100%;
+    filter: drop-shadow(0 24px 40px rgb(0 0 0 / 0.45));
+  }
+  .cierre__titulo {
+    max-width: 18ch;
+    font-size: clamp(1.75rem, 5.4vw, 3.25rem);
+    text-transform: uppercase;
+    color: var(--plata-50);
+  }
+</style>

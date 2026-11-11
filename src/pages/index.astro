@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Heroe from '../components/Heroe.astro';
+import Catalogo from '../components/Catalogo.astro';
+import Diferencial from '../components/Diferencial.astro';
+import Experiencia from '../components/Experiencia.astro';
+import Contacto from '../components/Contacto.astro';
+import Cierre from '../components/Cierre.astro';
+import { DESCRIPCION } from '../lib/empresa';
+---
+
+<Base titulo="DARJOD PARFUMS · Perfumería en Calarcá, Quindío" descripcion={DESCRIPCION} portada>
+  <Heroe />
+  <Catalogo />
+  <Diferencial />
+  <Experiencia />
+  <Contacto />
+  <Cierre />
+</Base>

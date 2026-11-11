@@ -1,0 +1,298 @@
+---
+// Héroe: «TU ESENCIA. TU DISTINCIÓN.» con una vitrina de dos ventanas (la forma del marco del
+// logo) sobre terciopelo. La foto principal es el LCP: se precarga desde Base.astro.
+import { marca } from '../lib/marca';
+import Imagen from './Imagen.astro';
+import Icono from './Icono.astro';
+import { wa, MENSAJES, UBICACION } from '../lib/empresa';
+import { TOTAL_PERFUMES } from '../lib/datos';
+import { TAMANOS_HEROE } from '../lib/medidas';
+const redondeo = Math.floor(TOTAL_PERFUMES / 100) * 100;
+---
+
+<section class="heroe terciopelo" id="inicio" aria-labelledby="heroe-titulo">
+  <div class="heroe__rejilla contenedor">
+    <div class="heroe__vitrina">
+      <div class="heroe__principal ventana">
+        <Imagen foto={marca.fotos.khamrah} sizes={TAMANOS_HEROE} prioridad clase="heroe__foto" />
+        <span class="filete" aria-hidden="true"></span>
+      </div>
+      <div class="heroe__segunda ventana">
+        <Imagen foto={marca.fotos.eclaire} sizes="(min-width: 960px) 15vw, 34vw" clase="heroe__foto" />
+        <span class="filete" aria-hidden="true"></span>
+      </div>
+      <p class="heroe__lema" aria-hidden="true">El arte de dejar huella</p>
+    </div>
+
+    <div class="heroe__texto">
+      <p class="heroe__lugar"><span class="rombo"></span>{UBICACION.ciudad} · {UBICACION.departamento}</p>
+      <h1 class="titular heroe__titulo" id="heroe-titulo">
+        <span>Tu esencia.</span>
+        <span>Tu distinción.</span>
+      </h1>
+      <p class="heroe__sub">Perfumería para quienes convierten cada aroma en una firma personal.</p>
+      <div class="heroe__acciones">
+        <a class="boton" href="#coleccion">
+          Explorar perfumes
+          <Icono nombre="abajo" />
+        </a>
+        <a class="boton boton--linea" href={wa(MENSAJES.general)} target="_blank" rel="noopener">
+          <Icono nombre="whatsapp" />
+          Comprar por WhatsApp
+        </a>
+      </div>
+      <ul class="heroe__datos" aria-label="DARJOD en cifras">
+        <li><b>+{redondeo}</b><span>fragancias</span></li>
+        <li class="rombo" aria-hidden="true"></li>
+        <li><b>24 h</b><span>de atención</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .heroe {
+    padding-top: calc(var(--cabecera) + 12px);
+    padding-bottom: clamp(48px, 8vw, 96px);
+    overflow: hidden;
+  }
+  .heroe__rejilla {
+    display: grid;
+    gap: 36px;
+  }
+
+  /* ── Vitrina ── */
+  .heroe__vitrina {
+    position: relative;
+    padding-bottom: 14%;
+  }
+  .heroe__principal {
+    --r: clamp(22px, 7vw, 46px);
+    width: 84%;
+    aspect-ratio: 4 / 4.4;
+    margin-left: auto;
+    background: var(--vino-700);
+  }
+  .heroe__principal :global(.heroe__foto),
+  .heroe__segunda :global(.heroe__foto) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .heroe__principal :global(img) {
+    object-position: 50% 62%;
+  }
+  .heroe__segunda {
+    --r: clamp(12px, 3.6vw, 24px);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    aspect-ratio: 3 / 4;
+    background: var(--vino-700);
+    box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.6);
+  }
+  .heroe__segunda :global(img) {
+    object-position: 50% 40%;
+  }
+  /* Velo granate en el borde de las fotos: las funde con el terciopelo. */
+  .heroe__principal::after,
+  .heroe__segunda::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgb(28 1 3 / 0) 55%, rgb(28 1 3 / 0.45)),
+      radial-gradient(120% 90% at 50% 40%, transparent 60%, rgb(28 1 3 / 0.35));
+    pointer-events: none;
+  }
+  .heroe__lema {
+    position: absolute;
+    right: 0;
+    top: 0;
+    writing-mode: vertical-rl;
+    transform: translateX(calc(100% + 10px));
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--plata-300);
+    white-space: nowrap;
+    display: none;
+  }
+
+  /* ── Texto ── */
+  .heroe__lugar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--plata-300);
+  }
+  .heroe__titulo {
+    display: grid;
+    font-size: clamp(2.25rem, 9.4vw, 3.5rem);
+    line-height: 1.02;
+    text-transform: uppercase;
+    color: var(--plata-50);
+  }
+  .heroe__titulo span {
+    white-space: nowrap;
+  }
+  .heroe__titulo span:last-child {
+    padding-left: 0.7em;
+  }
+  .heroe__sub {
+    max-width: 19em;
+    margin-top: 22px;
+    font: 500 clamp(1.25rem, 4.6vw, 1.625rem) / 1.3 var(--font-cursiva);
+    font-style: italic;
+    color: var(--plata-100);
+  }
+  .heroe__acciones {
+    display: grid;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .heroe__acciones .boton {
+    width: 100%;
+  }
+  .heroe__acciones .boton :global(svg) {
+    width: 16px;
+  }
+  .heroe__datos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 18px;
+    margin-top: 28px;
+    font-size: 0.8125rem;
+    color: var(--plata-300);
+  }
+  .heroe__datos li:not(.rombo) {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .heroe__datos b {
+    font: 500 1.125rem/1 var(--font-titular);
+    letter-spacing: 0.04em;
+    color: var(--plata-50);
+  }
+  .heroe__datos span {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Entrada del héroe al cerrarse la pantalla de carga (o al cargar, si no la hay). */
+  :global(html.js) .heroe__texto > *,
+  :global(html.js) .heroe__principal,
+  :global(html.js) .heroe__segunda {
+    animation: heroe-entra 1.2s var(--ease) both;
+  }
+  :global(html.js) .heroe__principal {
+    animation-name: heroe-foto;
+    animation-duration: 1.6s;
+  }
+  :global(html.js) .heroe__segunda {
+    animation-delay: 0.25s;
+  }
+  :global(html.js) .heroe__texto > :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  :global(html.js) .heroe__texto > :nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  :global(html.js) .heroe__texto > :nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  :global(html.js) .heroe__texto > :nth-child(5) {
+    animation-delay: 0.4s;
+  }
+  :global(html.intro-activa) .heroe__texto > *,
+  :global(html.intro-activa) .heroe__principal,
+  :global(html.intro-activa) .heroe__segunda {
+    animation-play-state: paused;
+  }
+  @keyframes heroe-entra {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  /* La foto principal nunca empieza invisible (es el LCP): solo se asienta con un leve zoom. */
+  @keyframes heroe-foto {
+    from {
+      transform: scale(1.05);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.js) .heroe__texto > *,
+    :global(html.js) .heroe__principal,
+    :global(html.js) .heroe__segunda {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 560px) {
+    .heroe__acciones {
+      grid-template-columns: auto auto;
+      justify-content: start;
+    }
+    .heroe__acciones .boton {
+      width: auto;
+    }
+  }
+  @media (min-width: 960px) {
+    .heroe {
+      min-height: min(100svh, 940px);
+      display: grid;
+      align-items: center;
+      padding-top: calc(var(--cabecera) + 24px);
+    }
+    .heroe__titulo {
+      font-size: clamp(3rem, 4.6vw, 4.5rem);
+    }
+    .heroe__rejilla {
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: clamp(40px, 6vw, 100px);
+    }
+    .heroe__texto {
+      order: -1;
+    }
+    .heroe__vitrina {
+      padding-bottom: 10%;
+      margin-right: 28px;
+    }
+    .heroe__principal {
+      width: 80%;
+      max-height: 72svh;
+      aspect-ratio: 4 / 4.9;
+    }
+    .heroe__segunda {
+      width: 36%;
+    }
+    .heroe__lema {
+      display: block;
+    }
+    .heroe__sub {
+      margin-top: 28px;
+    }
+    .heroe__acciones {
+      margin-top: 40px;
+    }
+  }
+</style>

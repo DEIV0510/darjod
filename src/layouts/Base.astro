@@ -1,0 +1,123 @@
+---
+import '../styles/fuentes.css';
+import '../styles/global.css';
+import fuentes from '../data/fuentes.json';
+import { marca, srcset } from '../lib/marca';
+import Carga from '../components/Carga.astro';
+import Cabecera from '../components/Cabecera.astro';
+import Pie from '../components/Pie.astro';
+import Flotante from '../components/Flotante.astro';
+import { MARCA, DESCRIPCION, WHATSAPP, UBICACION, REDES } from '../lib/empresa';
+import { TAMANOS_HEROE } from '../lib/medidas';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  /** Pantalla de carga y precarga de la foto del héroe (solo la portada). */
+  portada?: boolean;
+  jsonld?: object[];
+  noindex?: boolean;
+  /** Prefijo de los enlaces a secciones: '' en la portada, '/' en las demás páginas. */
+  base?: string;
+}
+const { titulo, descripcion, portada = false, jsonld = [], noindex = false, base = '' } = Astro.props;
+const site = Astro.site;
+const canonical = site ? new URL(Astro.url.pathname, site).href : undefined;
+const og = site ? new URL('/og.jpg', site).href : '/og.jpg';
+const heroe = marca.fotos.khamrah;
+const srcsetHeroe = srcset(heroe.avif);
+
+// Datos estructurados del negocio: solo lo verificable (sin dirección exacta, reseñas ni precios).
+const tienda = {
+  '@context': 'https://schema.org',
+  '@type': 'Store',
+  name: MARCA,
+  description: DESCRIPCION,
+  telephone: WHATSAPP.conIndicativo,
+  address: { '@type': 'PostalAddress', addressLocality: UBICACION.ciudad, addressRegion: UBICACION.departamento, addressCountry: 'CO' },
+  areaServed: UBICACION.departamento,
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59',
+  },
+  sameAs: REDES.map((r) => r.url),
+  ...(site ? { url: site.href, image: og, logo: new URL(marca.iconos.i512, site).href } : {}),
+};
+// JSON dentro de <script>: se escapa «<» para que ningún texto pueda cerrar la etiqueta.
+const json = (o: object) => JSON.stringify(o).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    {canonical && !noindex && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#1c0103" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <script is:inline define:vars={{ portada }}>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        // Respaldo: si el JS principal no llega en 6 s, se muestra todo (app.ts lo cancela).
+        window.__djRespaldo = setTimeout(function () {
+          d.classList.add('mostrar-todo');
+        }, 6000);
+        if (!portada) return;
+        try {
+          var c = navigator.connection || {};
+          var lenta = c.saveData || /(^|-)(2g|3g)$/.test(c.effectiveType || '');
+          if (!lenta && !location.hash && !sessionStorage.getItem('dj-intro')) {
+            d.classList.add('con-intro', 'intro-activa');
+            sessionStorage.setItem('dj-intro', '1');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <link rel="preload" href={fuentes.titular} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fuentes.cursiva} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fuentes.texto} as="font" type="font/woff2" crossorigin />
+    {portada && <link rel="preload" as="image" type="image/avif" imagesrcset={srcsetHeroe} imagesizes={TAMANOS_HEROE} fetchpriority="high" />}
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href={marca.iconos.i192} type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href={marca.iconos.i180} />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content={MARCA} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logotipo plateado de DARJOD PARFUMS sobre terciopelo granate" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {portada && <script type="application/ld+json" set:html={json(tienda)} />}
+    {jsonld.map((j) => <script type="application/ld+json" set:html={json(j)} />)}
+  </head>
+  <body>
+    <a class="salto" href="#contenido">Saltar al contenido</a>
+    {portada && <Carga />}
+    <Cabecera base={base} />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Pie base={base} />
+    <Flotante />
+    <script>
+      import '../scripts/app.ts';
+    </script>
+  </body>
+</html>

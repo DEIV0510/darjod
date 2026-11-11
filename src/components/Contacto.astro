@@ -1,0 +1,130 @@
+---
+// V · Ubicación y contacto. Sin dirección exacta (el cliente no la dio): municipio, enlace a
+// Google Maps con la búsqueda del municipio, WhatsApp y horario.
+import Icono from './Icono.astro';
+import { wa, MENSAJES, WHATSAPP, UBICACION, HORARIO } from '../lib/empresa';
+---
+
+<section class="contacto" id="contacto" aria-labelledby="contacto-titulo">
+  <div class="contacto__rejilla contenedor">
+    <div class="contacto__lugar">
+      <p class="rotulo aparece"><b>V</b><span>Ubicación y contacto</span></p>
+      <h2 class="titular contacto__ciudad aparece" id="contacto-titulo" style="--i:1">{UBICACION.ciudad}</h2>
+      <p class="contacto__region aparece" style="--i:2">{UBICACION.departamento}, {UBICACION.pais}</p>
+      <p class="contacto__coord aparece" style="--i:3" aria-hidden="true"><span class="rombo"></span>{UBICACION.coordenadas}</p>
+    </div>
+    <div class="contacto__derecha">
+    <dl class="contacto__datos">
+      <div class="aparece" style="--i:1">
+        <dt>Horario</dt>
+        <dd>{HORARIO}</dd>
+      </div>
+      <div class="aparece" style="--i:2">
+        <dt>WhatsApp</dt>
+        <dd><a href={wa(MENSAJES.ubicacion)} target="_blank" rel="noopener">{WHATSAPP.conIndicativo}</a></dd>
+      </div>
+      <div class="aparece" style="--i:3">
+        <dt>Pedidos</dt>
+        <dd>Elige tu perfume en la colección y escríbenos: te confirmamos la disponibilidad.</dd>
+      </div>
+    </dl>
+      <div class="contacto__acciones aparece" style="--i:4">
+        <a class="boton" href={wa(MENSAJES.ubicacion)} target="_blank" rel="noopener">
+          <Icono nombre="whatsapp" />
+          Escribir por WhatsApp
+        </a>
+        <a class="boton boton--linea" href={UBICACION.mapa} target="_blank" rel="noopener">
+          <Icono nombre="pin" />
+          Ver en Google Maps
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacto {
+    position: relative;
+    padding-block: clamp(80px, 10vw, 140px);
+    background: var(--vino-900);
+    border-top: 1px solid var(--linea-plata);
+  }
+  .contacto__rejilla {
+    display: grid;
+    gap: 48px;
+  }
+  .contacto__ciudad {
+    margin-top: 22px;
+    font-size: clamp(3.25rem, 15vw, 9rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--plata-50);
+  }
+  .contacto__region {
+    margin-top: 14px;
+    font: 500 clamp(1.375rem, 4.4vw, 2rem) / 1.2 var(--font-cursiva);
+    font-style: italic;
+    color: var(--plata-100);
+  }
+  .contacto__coord {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 22px;
+    font-size: 0.75rem;
+    letter-spacing: 0.28em;
+    color: var(--plata-400);
+  }
+  .contacto__datos {
+    display: grid;
+    margin: 0;
+    border-top: 1px solid var(--linea-plata);
+  }
+  .contacto__datos > div {
+    display: grid;
+    gap: 6px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--linea-plata);
+  }
+  .contacto__datos dt {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--plata-400);
+  }
+  .contacto__datos dd {
+    margin: 0;
+    font-size: 1.0625rem;
+    color: var(--plata-50);
+  }
+  .contacto__datos dd a {
+    text-decoration: none;
+    border-bottom: 1px solid rgb(230 228 232 / 0.35);
+    padding-bottom: 2px;
+  }
+  @media (hover: hover) {
+    .contacto__datos dd a:hover {
+      border-color: var(--plata-50);
+    }
+  }
+  .contacto__acciones {
+    display: grid;
+    gap: 12px;
+    padding-top: 28px;
+  }
+  @media (min-width: 560px) {
+    .contacto__acciones {
+      grid-template-columns: auto auto;
+      justify-content: start;
+    }
+  }
+  @media (min-width: 960px) {
+    .contacto__rejilla {
+      grid-template-columns: 1.15fr 1fr;
+      align-items: end;
+      gap: 80px;
+    }
+  }
+</style>

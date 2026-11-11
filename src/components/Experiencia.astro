@@ -1,0 +1,134 @@
+---
+// IV · Experiencia DARJOD: composición editorial con las fotos propias del cliente y una sola
+// frase. Parallax sutil por CSS (animation-timeline), sin JS.
+import { marca } from '../lib/marca';
+import Imagen from './Imagen.astro';
+---
+
+<section class="exp" id="experiencia" aria-labelledby="exp-titulo">
+  <div class="exp__rejilla contenedor">
+    <p class="rotulo aparece exp__rotulo"><b>IV</b><span>Experiencia DARJOD</span></p>
+
+    <figure class="exp__grande ventana aparece">
+      <Imagen foto={marca.fotos.amber} sizes="(min-width: 960px) 40vw, 84vw" clase="exp__foto parallax" />
+      <span class="filete" aria-hidden="true"></span>
+    </figure>
+
+    <blockquote class="exp__frase aparece" style="--i:1">
+      <p class="cursiva" id="exp-titulo">
+        Una fragancia no solo se lleva.
+        <span class="titular">Se recuerda.</span>
+      </p>
+    </blockquote>
+
+    <figure class="exp__media ventana aparece" style="--i:2">
+      <Imagen foto={marca.fotos.clubDeNuit} sizes="(min-width: 960px) 22vw, 46vw" clase="exp__foto parallax parallax--lento" />
+      <span class="filete" aria-hidden="true"></span>
+    </figure>
+
+    <figure class="exp__ancha ventana aparece" style="--i:1">
+      <Imagen foto={marca.fotos.khamrahCofre} sizes="(min-width: 960px) 46vw, calc(100vw - 32px)" clase="exp__foto parallax parallax--lento" />
+      <span class="filete" aria-hidden="true"></span>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .exp {
+    position: relative;
+    padding-block: clamp(80px, 11vw, 160px);
+    background: radial-gradient(80% 60% at 80% 20%, rgb(80 5 9 / 0.35), transparent 70%), var(--vino-950);
+    overflow: hidden;
+  }
+  .exp__rejilla {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .exp__rotulo {
+    grid-column: 1 / -1;
+    margin-bottom: 12px;
+  }
+  .exp figure {
+    position: relative;
+    overflow: hidden;
+    background: var(--vino-800);
+  }
+  .exp figure :global(.exp__foto) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .exp figure :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .exp__grande {
+    --r: clamp(20px, 6vw, 44px);
+    grid-column: 2 / -1;
+    aspect-ratio: 4 / 5;
+  }
+  .exp__frase {
+    grid-column: 1 / -1;
+    margin: 28px 0 20px;
+  }
+  .exp__frase p {
+    font-size: clamp(2rem, 8.4vw, 4.25rem);
+    line-height: 1.06;
+    color: var(--plata-100);
+    text-wrap: balance;
+  }
+  .exp__frase .titular {
+    display: block;
+    margin-top: 0.18em;
+    font-size: 0.86em;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--plata-50);
+  }
+  .exp__media {
+    --r: clamp(14px, 4vw, 28px);
+    grid-column: 1 / 7;
+    aspect-ratio: 9 / 10;
+  }
+  .exp__ancha {
+    --r: clamp(14px, 4vw, 30px);
+    grid-column: 7 / -1;
+    align-self: end;
+    aspect-ratio: 1 / 1.1;
+  }
+  .exp__ancha :global(img) {
+    object-position: 38% 50%;
+  }
+  @media (min-width: 960px) {
+    .exp__rejilla {
+      grid-template-rows: auto auto auto auto;
+      gap: 28px;
+    }
+    .exp__grande {
+      grid-column: 1 / 6;
+      grid-row: 2 / 5;
+      aspect-ratio: 4 / 5.2;
+    }
+    .exp__frase {
+      grid-column: 7 / -1;
+      grid-row: 2;
+      align-self: end;
+      margin: 0 0 24px;
+    }
+    .exp__media {
+      grid-column: 7 / 10;
+      grid-row: 3 / 5;
+      aspect-ratio: 3 / 4;
+      align-self: start;
+    }
+    .exp__ancha {
+      grid-column: 10 / -1;
+      grid-row: 4;
+      aspect-ratio: 4 / 5;
+      transform: translateY(18%);
+    }
+  }
+</style>

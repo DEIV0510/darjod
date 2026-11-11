@@ -1,0 +1,48 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { wa, WHATSAPP, MARCA } from '../lib/empresa';
+const contacto = wa(`Hola, ${MARCA}. Tengo una consulta sobre la política de privacidad.`);
+---
+
+<Legal titulo="Política de privacidad" descripcion="Cómo trata DARJOD PARFUMS la información de quienes visitan su sitio web y le escriben por WhatsApp." actualizado="10 de noviembre de 2026">
+  <p>
+    En {MARCA} (Calarcá, Quindío, Colombia) respetamos tu privacidad. Este sitio es un catálogo: no tiene formularios, cuentas de usuario, carrito de compras ni pagos en línea, y no
+    pide datos personales para navegarlo.
+  </p>
+
+  <h2>Qué información se recoge en este sitio</h2>
+  <ul>
+    <li>El sitio no usa cookies de publicidad ni herramientas de analítica o seguimiento.</li>
+    <li>
+      El navegador guarda una marca técnica en el almacenamiento de la sesión (sessionStorage) para no repetir la pantalla de carga en la misma visita. No contiene datos personales y se
+      borra al cerrar la pestaña.
+    </li>
+    <li>
+      El proveedor de alojamiento del sitio registra, como cualquier servidor web, datos técnicos de las solicitudes (dirección IP, fecha y página solicitada) para operar y proteger el
+      servicio.
+    </li>
+  </ul>
+
+  <h2>Cuando nos escribes por WhatsApp</h2>
+  <p>
+    Los botones de compra y consulta abren WhatsApp con un mensaje ya redactado. Ese mensaje solo se envía si tú lo decides. La conversación ocurre en WhatsApp, un servicio de un tercero
+    con sus propias condiciones y política de privacidad. Los datos que compartas en ella (por ejemplo, tu nombre, número y lo necesario para coordinar tu pedido) se tratan según nuestra
+    <a href="/datos-personales/">política de tratamiento de datos personales</a>.
+  </p>
+
+  <h2>Enlaces a otros sitios</h2>
+  <p>
+    El sitio enlaza a WhatsApp, Google Maps, Instagram y TikTok. Al abrirlos sales de este sitio y aplican las políticas de cada servicio.
+  </p>
+
+  <h2>Seguridad</h2>
+  <p>
+    El sitio se sirve por HTTPS, con cabeceras de seguridad y una política de contenido que solo permite ejecutar el código propio del sitio. Ninguna medida es infalible, pero aplicamos
+    prácticas razonables para proteger a quienes nos visitan.
+  </p>
+
+  <h2>Contacto</h2>
+  <p>
+    Para cualquier consulta sobre esta política, escríbenos por <a href={contacto} target="_blank" rel="noopener">WhatsApp al {WHATSAPP.conIndicativo}</a>.
+  </p>
+</Legal>

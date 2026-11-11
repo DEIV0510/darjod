@@ -1,0 +1,29 @@
+---
+// <picture> AVIF + WebP a partir de una entrada de src/data/marca.json.
+import { srcset, type Variante } from '../lib/marca';
+interface Props {
+  foto: Variante;
+  sizes: string;
+  alt?: string;
+  clase?: string;
+  prioridad?: boolean;
+}
+const { foto, sizes, alt = foto.alt ?? '', clase, prioridad = false } = Astro.props;
+const mayor = foto.webp[foto.webp.length - 1]!;
+const alto = Math.round((foto.alto / foto.ancho) * mayor[1]);
+---
+
+<picture class={clase}>
+  <source type="image/avif" srcset={srcset(foto.avif)} sizes={sizes} />
+  <img
+    src={mayor[0]}
+    srcset={srcset(foto.webp)}
+    sizes={sizes}
+    width={mayor[1]}
+    height={alto}
+    alt={alt}
+    loading={prioridad ? 'eager' : 'lazy'}
+    decoding={prioridad ? 'sync' : 'async'}
+    fetchpriority={prioridad ? 'high' : 'auto'}
+  />
+</picture>

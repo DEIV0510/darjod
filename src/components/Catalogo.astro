@@ -1,0 +1,112 @@
+---
+// II · La colección: buscador, filtros (género y casa) y rejilla. Las primeras 24 tarjetas
+// vienen en el HTML (se ven al instante y las lee Google); el resto llega de /catalogo.json
+// cuando la sección se acerca a la pantalla o al primer uso de un filtro.
+import '../styles/catalogo.css';
+import Tarjeta from './Tarjeta.astro';
+import Icono from './Icono.astro';
+import { COMPACTOS, CASAS, TOTAL } from '../lib/datos';
+import { vista } from '../lib/catalogo';
+import { wa, MARCA } from '../lib/empresa';
+
+const POR_PAGINA = 24;
+const primeras = COMPACTOS.slice(0, POR_PAGINA).map(vista);
+const arabes = CASAS.filter((c) => c.tipo === 'arabe');
+const disenador = CASAS.filter((c) => c.tipo === 'disenador');
+const otros = CASAS.filter((c) => c.tipo === 'accesorio');
+const pedir = wa(`Hola, ${MARCA}. Busco un perfume que no encontré en la página: `);
+---
+
+<section class="coleccion sobre-papel" id="coleccion" aria-labelledby="coleccion-titulo" data-total={TOTAL} data-pagina={POR_PAGINA}>
+  <div class="contenedor">
+    <header class="coleccion__cabeza">
+      <p class="rotulo aparece"><b>II</b><span>La colección</span></p>
+      <h2 class="titular coleccion__titulo aparece" id="coleccion-titulo" style="--i:1">Elige la fragancia que hablará por ti</h2>
+      <p class="coleccion__intro aparece" style="--i:2">
+        <b>{TOTAL}</b> referencias de <b>{CASAS.length}</b> casas. Elige la tuya y escríbenos: te confirmamos la disponibilidad por WhatsApp.
+      </p>
+    </header>
+
+    <div class="filtros" role="search" aria-label="Buscar en la colección" data-filtros>
+      <label class="filtros__buscar">
+        <span class="sr">Buscar perfume o casa</span>
+        <Icono nombre="buscar" />
+        <input type="search" name="q" placeholder="Busca un perfume o una casa" autocomplete="off" enterkeyhint="search" maxlength="60" data-buscar />
+      </label>
+      <div class="filtros__genero" role="group" aria-label="Filtrar por género">
+        {
+          ['Todos', 'Dama', 'Caballero', 'Unisex'].map((g, i) => (
+            <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-genero={i}>
+              {g}
+            </button>
+          ))
+        }
+      </div>
+      <label class="filtros__casa">
+        <span class="sr">Filtrar por casa</span>
+        <select name="casa" data-casa>
+          <option value="">Todas las casas</option>
+          <optgroup label="Casas árabes">
+            {
+              arabes.map((c) => (
+                <option value={c.casa}>
+                  {c.casa} ({c.n})
+                </option>
+              ))
+            }
+          </optgroup>
+          <optgroup label="Diseñador y nicho · 1.1">
+            {
+              disenador.map((c) => (
+                <option value={c.casa}>
+                  {c.casa} ({c.n})
+                </option>
+              ))
+            }
+          </optgroup>
+          <optgroup label="Complementos">
+            {
+              otros.map((c) => (
+                <option value={c.casa}>
+                  {c.casa} ({c.n})
+                </option>
+              ))
+            }
+          </optgroup>
+        </select>
+      </label>
+    </div>
+
+    <p class="coleccion__estado" aria-live="polite" data-estado>Mostrando {primeras.length} de {TOTAL}</p>
+
+    <ul class="rejilla" data-rejilla>
+      {primeras.map((v, i) => <Tarjeta v={v} pronto={i < 4} />)}
+    </ul>
+
+    <div class="coleccion__vacio" data-vacio hidden>
+      <p class="titular">No la encontramos aquí</p>
+      <p>Escríbenos el nombre y te decimos si la podemos conseguir.</p>
+      <a class="boton boton--vino" href={pedir} target="_blank" rel="noopener">
+        <Icono nombre="whatsapp" />
+        Preguntar por WhatsApp
+      </a>
+    </div>
+
+    <div class="coleccion__mas">
+      <button class="boton boton--vino" type="button" data-mas>
+        Ver más fragancias <span data-restantes>({TOTAL - primeras.length})</span>
+      </button>
+      <a class="boton boton--vino coleccion__sinjs" href={wa(`Hola, ${MARCA}. Quiero ver el catálogo completo.`)} target="_blank" rel="noopener">
+        <Icono nombre="whatsapp" />
+        Pedir el catálogo completo
+      </a>
+    </div>
+
+    <p class="coleccion__nota">
+      Las fragancias de casas de diseñador y nicho marcadas <abbr title="Versión 1.1">1.1</abbr> son versiones 1.1; las marcas citadas pertenecen a sus titulares y se mencionan solo para identificar
+      la fragancia. Fotos de referencia del proveedor.
+    </p>
+  </div>
+
+  <template id="tpl-tarjeta"><Tarjeta /></template>
+</section>

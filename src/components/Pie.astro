@@ -1,0 +1,162 @@
+---
+import { marca, srcset } from '../lib/marca';
+import Icono from './Icono.astro';
+import { wa, MENSAJES, WHATSAPP, UBICACION, HORARIO, REDES, MARCA } from '../lib/empresa';
+
+interface Props {
+  base?: string;
+}
+const { base = '' } = Astro.props;
+const p = marca.palabra;
+const anio = new Date().getFullYear();
+---
+
+<footer class="pie">
+  <div class="pie__rejilla contenedor">
+    <div class="pie__marca">
+      <picture>
+        <source type="image/avif" srcset={srcset(p.avif)} sizes="160px" />
+        <img src={p.webp[1]![0]} srcset={srcset(p.webp)} sizes="160px" width="200" height={Math.round((p.alto / p.ancho) * 200)} alt="DARJOD PARFUMS" loading="lazy" decoding="async" />
+      </picture>
+      <p class="cursiva">El arte de dejar huella.</p>
+    </div>
+    <div>
+      <h2 class="pie__titulo">Contacto</h2>
+      <ul class="pie__lista">
+        <li>
+          <a href={wa(MENSAJES.general)} target="_blank" rel="noopener"><Icono nombre="whatsapp" />WhatsApp {WHATSAPP.conIndicativo}</a>
+        </li>
+        <li>
+          <a href={UBICACION.mapa} target="_blank" rel="noopener"><Icono nombre="pin" />{UBICACION.ciudad}, {UBICACION.departamento}, {UBICACION.pais}</a>
+        </li>
+        <li><span class="pie__sin-icono">{HORARIO}</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="pie__titulo">Síguenos</h2>
+      <ul class="pie__lista">
+        {
+          REDES.map((r) => (
+            <li>
+              <a href={r.url} target="_blank" rel="noopener">
+                <Icono nombre={r.nombre === 'Instagram' ? 'instagram' : 'tiktok'} />
+                {r.nombre} {r.usuario}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h2 class="pie__titulo">Legal</h2>
+      <ul class="pie__lista">
+        <li><a href="/privacidad/">Política de privacidad</a></li>
+        <li><a href="/datos-personales/">Tratamiento de datos personales</a></li>
+        <li><a href="/terminos/">Términos y condiciones</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="pie__base contenedor">
+    <p>© {anio} {MARCA} · {UBICACION.ciudad}, {UBICACION.departamento}</p>
+    <a href={base ? `${base}#inicio` : '#inicio'}>Volver arriba</a>
+  </div>
+</footer>
+
+<style>
+  .pie {
+    background: var(--vino-950);
+    border-top: 1px solid var(--linea-plata);
+    padding-top: clamp(56px, 8vw, 96px);
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    color: var(--plata-300);
+    font-size: 0.9375rem;
+  }
+  .pie__rejilla {
+    display: grid;
+    gap: 40px;
+  }
+  .pie__marca picture {
+    width: 150px;
+  }
+  .pie__marca p {
+    margin-top: 16px;
+    font-size: 1.25rem;
+    color: var(--plata-100);
+  }
+  .pie__titulo {
+    margin-bottom: 14px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--plata-400);
+  }
+  .pie__lista {
+    display: grid;
+    gap: 2px;
+  }
+  .pie__lista a,
+  .pie__sin-icono {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    color: var(--plata-100);
+    text-decoration: none;
+  }
+  .pie__sin-icono {
+    padding-left: 28px;
+  }
+  .pie__lista a :global(svg) {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    color: var(--plata-300);
+  }
+  @media (hover: hover) {
+    .pie__lista a:hover {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-color: rgb(230 228 232 / 0.4);
+    }
+  }
+  .pie__base {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 56px;
+    padding-top: 22px;
+    font-size: 0.8125rem;
+    color: var(--plata-400);
+  }
+  .pie__base::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: var(--gutter);
+    right: var(--gutter);
+    height: 1px;
+    background: var(--linea-plata);
+  }
+  .pie__base a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -12px;
+    color: var(--plata-300);
+    text-underline-offset: 4px;
+  }
+  @media (min-width: 720px) {
+    .pie__rejilla {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1080px) {
+    .pie__rejilla {
+      grid-template-columns: 1.3fr 1.2fr 1fr 1fr;
+    }
+  }
+</style>

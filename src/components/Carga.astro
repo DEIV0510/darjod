@@ -1,0 +1,246 @@
+---
+// Pantalla de carga: terciopelo granate, el núcleo del logo oficial (frasco + DARJOD PARFUMS)
+// con un brillo plateado que recorre solo el metal, una línea de progreso y salida en cortina.
+//
+// Rendimiento primero (ver memoria del proyecto):
+// · Solo la 1.ª visita de la sesión a la portada; nunca con ahorro de datos, 2G/3G ni si se
+//   llega a un ancla (#coleccion) — lo decide el script en línea del <head> (Base.astro).
+// · La salida la maneja el script de aquí abajo, no el JS principal, y no espera fotos: cuenta
+//   el mínimo desde que el logo ya está pintado y tiene un tope de 2,4 s. Un toque o una tecla
+//   la cierran antes.
+// · El brillo usa como máscara la MISMA imagen ya descargada (img.currentSrc): 0 bytes más.
+// · Con movimiento reducido se muestra igual (es parte de lo pedido), sin brillo ni cortina:
+//   aparece, se ve medio segundo y se desvanece.
+import { marca, srcset } from '../lib/marca';
+const n = marca.nucleo;
+const alto = Math.round((n.alto / n.ancho) * 240);
+---
+
+<div id="carga" class="carga" aria-hidden="true">
+  <div class="carga__telon terciopelo"></div>
+  <div class="carga__centro">
+    <div class="carga__logo">
+      <picture>
+        <source type="image/avif" srcset={srcset(n.avif)} sizes="(min-width: 768px) 230px, 190px" />
+        <img src={n.webp[0]![0]} srcset={srcset(n.webp)} sizes="(min-width: 768px) 230px, 190px" width="240" height={alto} alt="" fetchpriority="high" decoding="async" />
+      </picture>
+      <span class="carga__brillo"><i></i></span>
+    </div>
+    <div class="carga__barra"><span></span></div>
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    var d = document.documentElement;
+    var el = document.getElementById('carga');
+    if (!d.classList.contains('con-intro')) {
+      el.remove();
+      return;
+    }
+    var reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var MINIMO = reducido ? 500 : 900;
+    var t0 = 0;
+    var docListo = false;
+    var cerrado = false;
+    function cerrar() {
+      if (cerrado) return;
+      cerrado = true;
+      el.classList.add('is-sale');
+      d.classList.remove('intro-activa');
+      setTimeout(
+        function () {
+          d.classList.remove('con-intro');
+          el.remove();
+          document.dispatchEvent(new Event('dj:listo'));
+        },
+        reducido ? 320 : 1000,
+      );
+    }
+    function intentar() {
+      if (!t0 || !docListo) return;
+      setTimeout(cerrar, Math.max(0, MINIMO - (performance.now() - t0)));
+    }
+    var caja = el.querySelector('.carga__logo');
+    var img = caja.querySelector('img');
+    function pintado() {
+      if (img.currentSrc) caja.querySelector('.carga__brillo').style.setProperty('--mascara', 'url("' + img.currentSrc + '")');
+      caja.classList.add('is-cargado');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          if (!t0) {
+            t0 = performance.now();
+            intentar();
+          }
+        });
+      });
+    }
+    if (img.complete && img.naturalWidth) pintado();
+    else {
+      img.addEventListener('load', pintado);
+      img.addEventListener('error', pintado);
+    }
+    function doc() {
+      docListo = true;
+      intentar();
+    }
+    if (document.readyState !== 'loading') doc();
+    else document.addEventListener('DOMContentLoaded', doc);
+    setTimeout(cerrar, 2400);
+    el.addEventListener('pointerdown', cerrar);
+    addEventListener('keydown', cerrar, { once: true });
+  })();
+</script>
+
+<style>
+  .carga {
+    display: none;
+  }
+  :global(html.con-intro) .carga {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  /* Telón: sube como una cortina y deja ver el héroe. */
+  /* Casi opaco a propósito (0,985, no se nota): con una capa 100 % opaca Chrome no pinta la
+     foto del héroe que queda debajo y el LCP se retrasa hasta que la cortina termina de subir. */
+  .carga__telon {
+    position: absolute;
+    inset: 0;
+    opacity: 0.985;
+    transition: transform 0.95s var(--ease-io) 0.05s;
+  }
+  .is-sale .carga__telon {
+    transform: translate3d(0, -101%, 0);
+  }
+  /* Filo de plata en el borde inferior del telón mientras sube. */
+  .carga__telon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--plata-100), transparent);
+    opacity: 0;
+  }
+  .is-sale .carga__telon::after {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .carga__centro {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    gap: 30px;
+    transition:
+      opacity 0.45s var(--ease),
+      transform 0.9s var(--ease);
+  }
+  .is-sale .carga__centro {
+    opacity: 0;
+    transform: translate3d(0, -3vh, 0) scale(1.04);
+  }
+  .carga__logo {
+    position: relative;
+    width: 190px;
+  }
+  /* Visible desde el primer fotograma (si arranca invisible, Chrome retiene la pantalla
+     anterior); al cargar, un leve acercamiento. */
+  .carga__logo img {
+    width: 100%;
+    height: auto;
+  }
+  .carga__logo.is-cargado img {
+    animation: carga-logo 1.4s var(--ease) both;
+  }
+  @keyframes carga-logo {
+    from {
+      transform: scale(0.965);
+      filter: brightness(0.75);
+    }
+    to {
+      transform: none;
+      filter: none;
+    }
+  }
+  /* Brillo metálico: una franja de luz recortada con la forma del logo. */
+  .carga__brillo {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    -webkit-mask: var(--mascara) center / 100% 100% no-repeat;
+    mask: var(--mascara) center / 100% 100% no-repeat;
+    mix-blend-mode: soft-light;
+    opacity: 0;
+  }
+  .carga__brillo i {
+    position: absolute;
+    inset: 0 -60%;
+    background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.85) 50%, transparent 62%);
+    transform: translate3d(-60%, 0, 0);
+  }
+  .is-cargado .carga__brillo {
+    opacity: 1;
+  }
+  .is-cargado .carga__brillo i {
+    animation: carga-brillo 1.5s var(--ease-io) 0.25s both;
+  }
+  @keyframes carga-brillo {
+    from {
+      transform: translate3d(-60%, 0, 0);
+    }
+    to {
+      transform: translate3d(60%, 0, 0);
+    }
+  }
+  .carga__barra {
+    width: 132px;
+    height: 1px;
+    background: rgb(230 228 232 / 0.18);
+    overflow: hidden;
+  }
+  .carga__barra span {
+    display: block;
+    height: 100%;
+    background: var(--plata-100);
+    transform-origin: 0 50%;
+    animation: carga-barra 1.1s var(--ease) both;
+  }
+  @keyframes carga-barra {
+    from {
+      transform: scaleX(0.04);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @media (min-width: 768px) {
+    .carga__logo {
+      width: 230px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .carga__telon {
+      transition: opacity 0.3s linear;
+    }
+    .is-sale .carga__telon {
+      transform: none;
+      opacity: 0;
+    }
+    .carga__logo.is-cargado img,
+    .is-cargado .carga__brillo i,
+    .carga__barra span {
+      animation: none;
+    }
+    .carga__brillo {
+      display: none;
+    }
+    .is-sale .carga__centro {
+      transform: none;
+    }
+  }
+</style>

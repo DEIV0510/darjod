@@ -1,0 +1,51 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { wa, WHATSAPP, MARCA } from '../lib/empresa';
+const contacto = wa(`Hola, ${MARCA}. Tengo una consulta sobre los términos y condiciones.`);
+---
+
+<Legal titulo="Términos y condiciones" descripcion="Condiciones de uso del sitio web y de las compras por WhatsApp en DARJOD PARFUMS." actualizado="10 de noviembre de 2026">
+  <p>
+    Estos términos regulan el uso del sitio web de {MARCA} (Calarcá, Quindío, Colombia). Al navegarlo aceptas estas condiciones.
+  </p>
+
+  <h2>Naturaleza del sitio</h2>
+  <p>
+    El sitio es un catálogo informativo. No se venden productos directamente en él: los pedidos se acuerdan por WhatsApp, donde te confirmamos disponibilidad, precio, forma de pago y
+    condiciones de entrega antes de cerrar cualquier compra.
+  </p>
+
+  <h2>Información de los productos</h2>
+  <ul>
+    <li>Las fotografías del catálogo son imágenes de referencia; la presentación puede variar.</li>
+    <li>La disponibilidad cambia con frecuencia y se confirma siempre por WhatsApp.</li>
+    <li>
+      Las fragancias de casas de diseñador y nicho identificadas con la marca «1.1» son versiones 1.1 de esas fragancias; no son fabricadas ni distribuidas por los titulares de esas
+      marcas. Los nombres y marcas citados pertenecen a sus respectivos titulares y se mencionan únicamente para identificar la fragancia de referencia.
+    </li>
+    <li>Si tienes dudas sobre un producto, pregúntanos antes de comprar: te respondemos con la información disponible.</li>
+  </ul>
+
+  <h2>Compras</h2>
+  <p>
+    Toda compra se rige por lo acordado en la conversación de WhatsApp y por la Ley 1480 de 2011 (Estatuto del Consumidor) en lo que corresponda. Antes de confirmar tu pedido te
+    informaremos el precio total y las condiciones aplicables.
+  </p>
+
+  <h2>Propiedad intelectual</h2>
+  <p>
+    El logotipo de {MARCA}, los textos y el diseño del sitio son de {MARCA}. No pueden copiarse ni usarse con fines comerciales sin autorización.
+  </p>
+
+  <h2>Responsabilidad</h2>
+  <p>
+    Procuramos que la información del sitio sea correcta y esté actualizada, pero puede contener errores u omisiones que corregiremos al conocerlos. No respondemos por fallas de servicios
+    de terceros (WhatsApp, Google Maps, redes sociales) a los que enlaza el sitio.
+  </p>
+
+  <h2>Ley aplicable y contacto</h2>
+  <p>
+    Estos términos se rigen por las leyes de la República de Colombia. Para cualquier consulta, escríbenos por
+    <a href={contacto} target="_blank" rel="noopener">WhatsApp al {WHATSAPP.conIndicativo}</a>.
+  </p>
+</Legal>

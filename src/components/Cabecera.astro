@@ -1,0 +1,353 @@
+---
+// Cabecera: transparente sobre el héroe; al bajar, franja de terciopelo con desenfoque.
+// En móvil, menú a pantalla completa (dialog) que se cierra con «Atrás», Esc o al elegir.
+import { marca, srcset } from '../lib/marca';
+import Icono from './Icono.astro';
+import { wa, MENSAJES, WHATSAPP, HORARIO, UBICACION } from '../lib/empresa';
+
+interface Props {
+  base?: string;
+}
+const { base = '' } = Astro.props;
+const p = marca.palabra;
+const n = marca.nucleo;
+const ENLACES = [
+  { href: `${base}#coleccion`, texto: 'Colección' },
+  { href: `${base}#casa`, texto: 'La casa' },
+  { href: `${base}#experiencia`, texto: 'Experiencia' },
+  { href: `${base}#contacto`, texto: 'Contacto' },
+];
+---
+
+<header class="cabecera" id="cabecera">
+  <div class="cabecera__fila contenedor">
+    <a class="cabecera__logo" href={base || '#inicio'} aria-label="DARJOD PARFUMS, ir al inicio">
+      <picture>
+        <source type="image/avif" srcset={srcset(p.avif)} sizes="128px" />
+        <img src={p.webp[1]![0]} srcset={srcset(p.webp)} sizes="128px" width="200" height={Math.round((p.alto / p.ancho) * 200)} alt="DARJOD PARFUMS" decoding="async" />
+      </picture>
+    </a>
+    <nav class="cabecera__nav" aria-label="Principal">
+      <ul>
+        {
+          ENLACES.map((e) => (
+            <li>
+              <a href={e.href}>{e.texto}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a class="cabecera__wa" href={wa(MENSAJES.general)} target="_blank" rel="noopener">
+      <Icono nombre="whatsapp" />
+      <span>Comprar</span>
+    </a>
+    <button class="cabecera__menu" type="button" aria-expanded="false" aria-controls="menu-movil" data-abrir-menu>
+      <span class="sr">Abrir menú</span>
+      <span class="hamburguesa" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<dialog class="menu terciopelo" id="menu-movil" aria-label="Menú">
+  <div class="menu__arriba contenedor">
+    <picture class="menu__logo">
+      <source type="image/avif" srcset={srcset(n.avif)} sizes="84px" />
+      <img src={n.webp[0]![0]} srcset={srcset(n.webp)} sizes="84px" width="240" height={Math.round((n.alto / n.ancho) * 240)} alt="" loading="lazy" decoding="async" />
+    </picture>
+    <button class="menu__cerrar" type="button" data-cerrar-menu>
+      <span class="sr">Cerrar menú</span>
+      <Icono nombre="cerrar" />
+    </button>
+  </div>
+  <nav class="menu__nav contenedor" aria-label="Menú móvil">
+    <ol>
+      {
+        ENLACES.map((e, i) => (
+          <li style={`--i:${i}`}>
+            <a href={e.href} data-cerrar-menu>
+              <small>{['I', 'II', 'III', 'IV'][i]}</small>
+              {e.texto}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+  <div class="menu__pie contenedor">
+    <a class="boton" href={wa(MENSAJES.general)} target="_blank" rel="noopener">
+      <Icono nombre="whatsapp" />
+      Comprar por WhatsApp
+    </a>
+    <p>{WHATSAPP.conIndicativo} · {HORARIO} · {UBICACION.ciudad}, {UBICACION.departamento}</p>
+  </div>
+</dialog>
+
+<style>
+  .cabecera {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    height: var(--cabecera);
+    transition:
+      background-color 0.5s var(--ease),
+      box-shadow 0.5s var(--ease),
+      transform 0.5s var(--ease);
+  }
+  .cabecera::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(28 1 3 / 0.95);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid var(--linea-plata);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+  }
+  :global(.cabecera.is-solida)::before {
+    opacity: 1;
+  }
+  :global(html.intro-activa) .cabecera {
+    transform: translateY(-100%);
+  }
+  .cabecera__fila {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .cabecera__logo {
+    display: block;
+    width: 116px;
+    flex: none;
+  }
+  .cabecera__logo img {
+    width: 100%;
+  }
+  .cabecera__nav {
+    display: none;
+    margin-left: auto;
+  }
+  .cabecera__nav ul {
+    display: flex;
+    gap: clamp(20px, 2.6vw, 40px);
+  }
+  .cabecera__nav a {
+    position: relative;
+    display: block;
+    padding: 10px 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--plata-100);
+  }
+  .cabecera__nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s var(--ease);
+  }
+  @media (hover: hover) {
+    .cabecera__nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+  .cabecera__wa {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid rgb(230 228 232 / 0.4);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition:
+      border-color 0.4s,
+      background-color 0.4s;
+  }
+  .cabecera__wa :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  @media (hover: hover) {
+    .cabecera__wa:hover {
+      background: var(--plata-50);
+      border-color: var(--plata-50);
+      color: var(--vino-900);
+    }
+  }
+  .cabecera__menu {
+    margin-left: auto;
+    width: 48px;
+    height: 48px;
+    margin-right: -12px;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .hamburguesa {
+    display: grid;
+    gap: 7px;
+    width: 26px;
+  }
+  .hamburguesa i {
+    display: block;
+    height: 1px;
+    background: var(--plata-50);
+    transition: transform 0.5s var(--ease);
+  }
+  .hamburguesa i:last-child {
+    width: 70%;
+    justify-self: end;
+  }
+  @media (hover: hover) {
+    .cabecera__menu:hover .hamburguesa i:last-child {
+      transform: scaleX(1.43);
+      transform-origin: right;
+    }
+  }
+  @media (min-width: 960px) {
+    .cabecera__nav,
+    .cabecera__wa {
+      display: flex;
+    }
+    .cabecera__menu {
+      display: none;
+    }
+    .cabecera__logo {
+      width: 128px;
+    }
+  }
+
+  /* ── Menú móvil ── */
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: var(--plata-100);
+    background-color: var(--vino-900);
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .menu[open] {
+    display: flex;
+    animation: menu-entra 0.6s var(--ease) both;
+  }
+  .menu::backdrop {
+    background: transparent;
+  }
+  @keyframes menu-entra {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  .menu__arriba {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 22px;
+  }
+  .menu__logo {
+    width: 84px;
+  }
+  .menu__cerrar {
+    width: 48px;
+    height: 48px;
+    margin-right: -12px;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .menu__cerrar :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+  .menu__nav {
+    margin-block: auto;
+    padding-block: 32px;
+  }
+  .menu__nav li {
+    border-top: 1px solid var(--linea-plata);
+  }
+  .menu__nav li:last-child {
+    border-bottom: 1px solid var(--linea-plata);
+  }
+  .menu__nav a {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    padding: 18px 0;
+    font: 500 clamp(1.75rem, 8vw, 2.5rem) / 1.1 var(--font-titular);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .menu__nav small {
+    width: 2.2em;
+    font: 500 0.75rem/1 var(--font-texto);
+    letter-spacing: 0.2em;
+    color: var(--plata-400);
+  }
+  .menu[open] .menu__nav li {
+    animation: menu-item 0.8s var(--ease) both;
+    animation-delay: calc(0.15s + var(--i) * 0.07s);
+  }
+  @keyframes menu-item {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .menu__pie {
+    display: grid;
+    gap: 16px;
+    padding-bottom: max(28px, env(safe-area-inset-bottom));
+  }
+  .menu__pie .boton {
+    width: 100%;
+  }
+  .menu__pie p {
+    font-size: 0.8125rem;
+    color: var(--plata-300);
+    text-align: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu[open],
+    .menu[open] .menu__nav li {
+      animation: none;
+    }
+  }
+</style>
